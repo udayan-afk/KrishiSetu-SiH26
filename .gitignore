@@ -1,0 +1,32 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android Studio / IDE
+.idea/
+*.iml
+
+# Local configuration
+local.properties
+
+# Kotlin
+*.kotlin_module
+
+# Generated files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+.env.*
+
+gradle-8.5-bin.zip

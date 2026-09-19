@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App & Brand -->
+    <string name="app_name">KrishiSetu</string>
+    <string name="app_tagline">Connecting Farmers to Better Markets</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_markets">Markets</string>
+    <string name="nav_buyers">Buyers</string>
+    <string name="nav_my_lots">FPO</string>
+    <string name="nav_fpo">FPO</string>
+    <string name="nav_kisan_ai">Kisan AI</string>
+
+    <!-- Learn with KrishiSetu -->
+    <string name="learn_with_krishisetu_title">Learn with KrishiSetu</string>
+    <string name="learn_with_krishisetu_sub">Simple guides to help you sell smarter</string>
+    <string name="view_all_btn">View All</string>
+    <string name="tutorial_video_title">Learn with KrishiSetu</string>
+    <string name="prototype_tutorial_badge">Official Govt Video</string>
+    <string name="video_1_title">PM-KISAN: What Farmers Should Know</string>
+    <string name="video_1_sub">Government income support scheme</string>
+    <string name="video_1_desc">Official government video explaining how PM-KISAN provides ₹6,000 yearly income support to eligible farmer families across India.</string>
+    <string name="video_2_title">How PM-KISAN e-KYC Works</string>
+    <string name="video_2_sub">Complete your e-KYC correctly</string>
+    <string name="video_2_desc">Step-by-step guide to complete OTP-based or biometric e-KYC on the official PM-KISAN portal.</string>
+    <string name="video_3_title">Kisan e-Mitra &amp; Farmer Support</string>
+    <string name="video_3_sub">Get answers about government schemes</string>
+    <string name="video_3_desc">Learn how to use Kisan e-Mitra AI chatbot for instant query resolution on PM-KISAN installments and government schemes.</string>
+    <string name="video_source_label">Source: Government of India / PM-KISAN</string>
+    <string name="watch_on_youtube_btn">Watch Official Video on YouTube ▶</string>
+
+    <!-- Document Verification -->
+    <string name="other_docs_label">Other Required Documents</string>
+
+    <!-- Help & Support -->
+    <string name="help_and_support_title">Help &amp; Support</string>
+    <string name="need_help_title">Need Help?</string>
+    <string name="need_help_sub">Get assistance with your transactions, payments, deliveries or account.</string>
+    <string name="customer_support_btn">Customer Support</string>
+    <string name="raise_a_dispute_btn">Raise a Dispute</string>
+    <string name="my_complaints_btn">My Complaints</string>
+    <string name="support_cat_prices">Market Prices</string>
+    <string name="support_cat_lot">Crop Lot</string>
+    <string name="support_cat_offers">Buyer Offers</string>
+    <string name="support_cat_payments">Payments</string>
+    <string name="support_cat_delivery">Delivery</string>
+    <string name="support_cat_account">Account / eKYC</string>
+    <string name="still_need_help">Still need help?</string>
+    <string name="report_issue_btn">Report Issue</string>
+
+    <!-- Raise Dispute -->
+    <string name="raise_dispute_title">Raise a Dispute</string>
+    <string name="issue_about_prompt">What is the issue about?</string>
+    <string name="issue_payment">Payment Issue</string>
+    <string name="issue_quality">Quality Issue</string>
+    <string name="issue_delivery">Delivery Issue</string>
+    <string name="issue_buyer">Buyer Issue</string>
+    <string name="issue_other">Other</string>
+    <string name="select_transaction_prompt">Select Transaction</string>
+    <string name="describe_issue_prompt">Describe the issue</string>
+    <string name="describe_issue_placeholder">Tell us what happened...</string>
+    <string name="add_photo_doc">Add Photo / Document</string>
+    <string name="photo_attached">Photo Attached ✓</string>
+    <string name="submit_dispute_btn">Submit Dispute</string>
+
+    <!-- Dispute Confirmation -->
+    <string name="dispute_submitted_title">Dispute Submitted</string>
+    <string name="dispute_submitted_msg">Your complaint has been registered successfully.</string>
+    <string name="expected_response_time">Expected response: Within 24 hours</string>
+    <string name="track_dispute_btn">Track Dispute</string>
+
+    <!-- My Complaints -->
+    <string name="my_complaints_title">My Complaints</string>
+    <string name="no_complaints_msg">No complaints recorded yet.</string>
+    <string name="ticket_id_label">Ticket ID</string>
+
+
+    <!-- Language Selection -->
+    <string name="select_language_title">Choose Language</string>
+    <string name="select_language_subtitle">Select your preferred application language</string>
+    <string name="continue_button">Continue</string>
+
+    <!-- Role & Auth -->
+    <string name="who_are_you">Who are you?</string>
+    <string name="select_role_subtitle">Select your role to continue</string>
+    <string name="farmer_role_title">Farmer</string>
+    <string name="farmer_role_subtitle">Farmer · Kisan · Shetkari</string>
+    <string name="farmer_role_desc">Sell crops, compare market prices, find buyers and track payments</string>
+    <string name="buyer_role_title">Buyer / Organisation</string>
+    <string name="admin_role_title">Admin</string>
+    <string name="farmer_login_title">Farmer Login</string>
+    <string name="enter_mobile_prompt">Enter your mobile number to continue</string>
+    <string name="mobile_number_label">Mobile Number</string>
+    <string name="send_otp_btn">Send OTP</string>
+    <string name="verify_login_btn">Verify &amp; Login</string>
+    <string name="new_farmer_register_btn">🌾 New Farmer? Register Here</string>
+    <string name="register_title">Register as Farmer</string>
+    <string name="register_subtitle">Create your free KrishiSetu account</string>
+    <string name="full_name_label">Full Name</string>
+    <string name="village_city_label">Village / City</string>
+    <string name="create_account_btn">🌾 Create Account &amp; Set Up Profile</string>
+    <string name="back_to_login">← Back to Login</string>
+
+    <!-- Home Screen -->
+    <string name="greeting_prefix">Namaskar</string>
+    <string name="today_best_opp_title">Today\'s Best Opportunity</string>
+    <string name="today_best_opp_subtitle">Sell 800 kg Tomato at Pune Market or Direct Buyer</string>
+    <string name="quick_actions_header">Quick Actions</string>
+    <string name="action_add_crop">Add Crop Lot</string>
+    <string name="action_add_crop_sub">Create sale lot</string>
+    <string name="action_best_place">Best Place to Sell</string>
+    <string name="action_best_place_sub">Net realization</string>
+    <string name="action_market_prices">Market Prices</string>
+    <string name="action_market_prices_sub">Satara / Pune / APMC</string>
+    <string name="action_compare_markets">Compare Markets</string>
+    <string name="action_compare_markets_sub">Distance vs Price</string>
+    <string name="action_find_buyers">Find Buyers</string>
+    <string name="action_find_buyers_sub">Verified buyers</string>
+    <string name="action_kisan_ai">Kisan AI</string>
+    <string name="action_kisan_ai_sub">Smart Assistant</string>
+    <string name="action_profit_calc">Profit Calculator</string>
+    <string name="action_profit_calc_sub">Est. Net profit</string>
+    <string name="action_schemes_map">Schemes &amp; Map</string>
+    <string name="action_schemes_map_sub">Govt Benefits &amp; Pins</string>
+    <string name="my_lots_header">My Crop Lots</string>
+    <string name="target_price_label">Target Price</string>
+    <string name="lot_id_label">Lot ID</string>
+    <string name="quality_label">Quality</string>
+
+    <!-- Create Lot Wizard -->
+    <string name="create_lot_wizard_title">Create Crop Lot</string>
+    <string name="step_progress">Step %1$d of 5</string>
+    <string name="step1_title">Step 1: Select Your Crop</string>
+    <string name="step2_title">Step 2: Enter Quantity &amp; Price</string>
+    <string name="step3_title">Step 3: Select Quality Grade (Single Choice)</string>
+    <string name="step4_title">Step 4: Upload Crop Photos</string>
+    <string name="step5_title">Step 5: Review &amp; Create Lot</string>
+    <string name="select_crop_label">Select Crop</string>
+    <string name="quantity_kg_label">Quantity (in kg)</string>
+    <string name="expected_price_label">Expected Selling Price (₹ per kg)</string>
+    <string name="quality_grade_header">Quality Grade (Select One)</string>
+    <string name="grade_a_label">Grade A (Export Quality)</string>
+    <string name="grade_b_label">Grade B (Standard)</string>
+    <string name="grade_c_label">Grade C (Local)</string>
+    <string name="organic_toggle_label">Organic Certified</string>
+    <string name="organic_toggle_sub">Toggle if certified organic</string>
+    <string name="upload_photos_header">Crop Photos</string>
+    <string name="photos_subtext">High quality photos increase buyer response by 45%</string>
+    <string name="review_summary_header">Lot Summary</string>
+    <string name="create_lot_now_btn">🚀 Create Lot Now</string>
+    <string name="est_gross_value">Est. Gross Value</string>
+
+    <!-- Market Prices & Comparison -->
+    <string name="market_prices_title">Market Prices (Maharashtra)</string>
+    <string name="market_prices_subtitle">Live APMC &amp; Direct Prices</string>
+    <string name="highest_rate_label">Highest Rate</string>
+    <string name="current_rate_label">Current Rate</string>
+    <string name="modal_price_label">Modal Price</string>
+    <string name="max_rate_label">Max Rate</string>
+    <string name="price_trend_7days">7-Day Price Trend (Satara / Pune)</string>
+    <string name="compare_market_costs_btn">⚖️ Compare Market Costs</string>
+    <string name="compare_market_sub">Calculate transport vs net realization for Satara, Karad &amp; Pune</string>
+    <string name="market_comparison_title">Market Cost Comparison</string>
+    <string name="net_realization_formula">Gross Revenue - Transport Cost - Commission = Net Realization In Your Pocket</string>
+    <string name="best_value_badge">BEST VALUE</string>
+    <string name="view_recommended_deal_btn">🎯 View Recommended Selling Deal</string>
+    <string name="est_net_label">ESTIMATED NET:</string>
+
+    <!-- Best Place to Sell & Sell or Wait -->
+    <string name="best_place_title">Best Place to Sell</string>
+    <string name="top_recommendation_badge">TOP RECOMMENDATION</string>
+    <string name="gross_amount_label">Gross Amount</string>
+    <string name="transport_cost_label">Transport Cost (-)</string>
+    <string name="commission_fee_label">Mandi Commission (-)</string>
+    <string name="net_realization_title">ESTIMATED NET REALIZATION</string>
+    <string name="sell_now_or_wait_title">Sell Now vs Wait Engine</string>
+    <string name="sell_now_recommendation">RECOMMENDATION: SELL NOW</string>
+    <string name="market_indicators_title">Market Indicators Analysis</string>
+    <string name="proceed_to_sell_btn">🌾 Proceed to Sell Lot Now</string>
+
+    <!-- Buyer Marketplace & Offers -->
+    <string name="buyer_marketplace_title">Buyer Marketplace</string>
+    <string name="search_buyers_placeholder">Search by buyer name or city...</string>
+    <string name="make_offer_btn">Make Offer</string>
+    <string name="digital_offer_title">Digital Buyer Offer</string>
+    <string name="offered_price_label">Offered Price</string>
+    <string name="negotiation_history_header">Negotiation History</string>
+    <string name="accept_offer_btn">✅ Accept Offer</string>
+    <string name="counter_offer_btn">💬 Counter Offer</string>
+    <string name="reject_offer_btn">❌ Reject Offer</string>
+    <string name="offer_accepted_success">OFFER ACCEPTED!</string>
+    <string name="select_logistics_btn">🚚 Select Transport</string>
+
+    <!-- Logistics & FPO -->
+    <string name="logistics_title">Logistics &amp; Transport</string>
+    <string name="available_vehicles_header">Available Verified Drivers &amp; Vehicles</string>
+    <string name="confirm_transport_btn">🚚 Confirm Selected Transport</string>
+    <string name="fpo_aggregation_title">FPO Collective Pooling</string>
+    <string name="join_fpo_btn">🤝 Join FPO Lot</string>
+
+    <!-- Profit Calculator -->
+    <string name="profit_calc_title">Farm Profit Calculator</string>
+    <string name="calc_inputs_header">Calculator Inputs</string>
+    <string name="storage_cost_label">Storage Cost (₹)</string>
+    <string name="handling_cost_label">Other Handling Costs (₹)</string>
+    <string name="total_expenses_label">Total Expenses (-)</string>
+    <string name="gross_revenue_label">Gross Revenue</string>
+
+    <!-- Payments & Schemes -->
+    <string name="payments_title">Payments &amp; Transactions</string>
+    <string name="settlement_earnings_header">Total Settlement Earnings</string>
+    <string name="status_timeline_header">Payment Status Lifecycle Timeline</string>
+    <string name="schemes_title">Government Schemes</string>
+    <string name="benefit_label">Benefit</string>
+    <string name="eligibility_label">Eligibility</string>
+    <string name="documents_label">Documents Required</string>
+
+    <!-- Status Labels -->
+    <string name="status_deal_confirmed">Deal Confirmed</string>
+    <string name="status_pickup_scheduled">Pickup Scheduled</string>
+    <string name="status_in_transit">In Transit</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_payment_initiated">Payment Initiated</string>
+    <string name="status_payment_received">Payment Received</string>
+
+    <!-- Kisan AI & Map & Profile -->
+    <string name="kisan_ai_title">Kisan AI Assistant</string>
+    <string name="ask_ai_placeholder">Ask in Marathi, Hindi, English...</string>
+    <string name="map_title">KrishiSetu Market &amp; Buyer Map</string>
+    <string name="profile_title">Farmer Profile</string>
+    <string name="select_language_setting">App Language</string>
+    <string name="logout_btn">🔒 Logout &amp; Switch Role</string>
+
+    <!-- General -->
+    <string name="verified_farmer">Verified Farmer</string>
+    <string name="verified_buyer">Verified Buyer</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+
+    <!-- Cascading Registration Fields -->
+    <string name="state_label">State</string>
+    <string name="district_label">District</string>
+    <string name="taluka_label">Taluka</string>
+    <string name="village_label">Village</string>
+    <string name="select_state_prompt">Select State</string>
+    <string name="select_district_prompt">Select District</string>
+    <string name="select_taluka_prompt">Select Taluka</string>
+    <string name="select_village_prompt">Select Village</string>
+
+    <!-- eKYC & Document Verification -->
+    <string name="ekyc_card_title">KrishiSetu Complete Your eKYC &amp; get your documents verified</string>
+    <string name="ekyc_card_subtitle">Verify your documents to unlock a more trusted and complete KrishiSetu experience.</string>
+    <string name="verify_now_btn">Verify Now</string>
+    <string name="complete_ekyc_btn">Complete eKYC</string>
+    <string name="verification_in_progress">Documents submitted — verification in progress</string>
+    <string name="ekyc_verified">Your documents are verified ✓</string>
+
+    <!-- Document Verification Section -->
+    <string name="doc_verification_header">DOCUMENT VERIFICATION</string>
+    <string name="aadhaar_card_label">Aadhaar Card</string>
+    <string name="seven_twelve_label">7/12 Extract</string>
+    <string name="gat_number_label">GAT Number</string>
+    <string name="bank_details_label">Bank Details</string>
+    <string name="upload_btn">Upload</string>
+    <string name="submit_docs_btn">Submit Documents for Verification</string>
+    <string name="not_submitted_status">Not Submitted</string>
+    <string name="submitted_status">✓ Submitted</string>
+    <string name="under_verification_status">Under Verification</string>
+    <string name="verified_status">Verified ✓</string>
+
+    <!-- Submission Popup -->
+    <string name="docs_submitted_title">Documents Submitted Successfully</string>
+    <string name="docs_submitted_msg">Your documents will be reviewed and verified within 24 hours of submission.</string>
+    <string name="got_it_btn">Got it</string>
+
+    <!-- Scheme Banner -->
+    <string name="learn_more_btn">Learn More</string>
+    <string name="govt_schemes_banner_title">Government Schemes &amp; Support</string>
+</resources>

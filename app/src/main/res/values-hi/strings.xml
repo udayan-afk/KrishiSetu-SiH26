@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App & Brand -->
+    <string name="app_name">कृषिसेतु</string>
+    <string name="app_tagline">किसान को बेहतर बाज़ार से जोड़ना</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_markets">बाज़ार भाव</string>
+    <string name="nav_buyers">खरीदार</string>
+    <string name="nav_my_lots">FPO</string>
+    <string name="nav_fpo">FPO</string>
+    <string name="nav_kisan_ai">किसान AI</string>
+
+    <!-- Learn with KrishiSetu -->
+    <string name="learn_with_krishisetu_title">कृषिसेतु के साथ सीखें</string>
+    <string name="learn_with_krishisetu_sub">स्मार्ट बिक्री के लिए आसान गाइड</string>
+    <string name="view_all_btn">सभी देखें</string>
+    <string name="tutorial_video_title">कृषिसेतु के साथ सीखें</string>
+    <string name="prototype_tutorial_badge">आधिकारिक सरकारी वीडियो</string>
+    <string name="video_1_title">पीएम-किसान: किसानों को क्या जानना चाहिए</string>
+    <string name="video_1_sub">सरकारी आय सहायता योजना</string>
+    <string name="video_1_desc">किसानों के लिए पीएम-किसान ₹6,000 वार्षिक वित्तीय सहायता की जानकारी देने वाला आधिकारिक वीडियो।</string>
+    <string name="video_2_title">पीएम-किसान ई-केवाईसी कैसे करें</string>
+    <string name="video_2_sub">अपना ई-केवाईसी सही तरीके से पूरा करें</string>
+    <string name="video_2_desc">पीएम-किसान पोर्टल पर ओटीपी और बायोमेट्रिक ई-केवाईसी पूरा करने के लिए चरण-दर-चरण गाइड।</string>
+    <string name="video_3_title">किसान ई-मित्र और किसान सहायता</string>
+    <string name="video_3_sub">सरकारी योजनाओं के बारे में उत्तर प्राप्त करें</string>
+    <string name="video_3_desc">किसान ई-मित्र के माध्यम से पीएम-किसान किश्तों और योजनाओं की जानकारी प्राप्त करना सीखें।</string>
+    <string name="video_source_label">स्रोत: भारत सरकार / पीएम-किसान</string>
+    <string name="watch_on_youtube_btn">यूट्यूब पर आधिकारिक वीडियो देखें ▶</string>
+
+    <!-- Document Verification -->
+    <string name="other_docs_label">अन्य आवश्यक दस्तावेज</string>
+
+    <!-- Help & Support -->
+    <string name="help_and_support_title">सहायता और सहायता</string>
+    <string name="need_help_title">क्या आपको मदद चाहिए?</string>
+    <string name="need_help_sub">अपने लेनदेन, भुगतान, डिलीवरी या खाते के लिए सहायता प्राप्त करें।</string>
+    <string name="customer_support_btn">कस्टमर सपोर्ट</string>
+    <string name="raise_a_dispute_btn">विवाद दर्ज करें</string>
+    <string name="my_complaints_btn">मेरी शिकायतें</string>
+    <string name="support_cat_prices">बाज़ार भाव</string>
+    <string name="support_cat_lot">फसल लॉट</string>
+    <string name="support_cat_offers">खरीदार ऑफ़र</string>
+    <string name="support_cat_payments">भुगतान</string>
+    <string name="support_cat_delivery">डिलीवरी</string>
+    <string name="support_cat_account">खाता / eKYC</string>
+    <string name="still_need_help">अभी भी मदद चाहिए?</string>
+    <string name="report_issue_btn">समस्या दर्ज करें</string>
+
+    <!-- Raise Dispute -->
+    <string name="raise_dispute_title">विवाद दर्ज करें</string>
+    <string name="issue_about_prompt">समस्या किस बारे में है?</string>
+    <string name="issue_payment">भुगतान समस्या</string>
+    <string name="issue_quality">गुणवत्ता समस्या</string>
+    <string name="issue_delivery">डिलीवरी समस्या</string>
+    <string name="issue_buyer">खरीदार समस्या</string>
+    <string name="issue_other">अन्य</string>
+    <string name="select_transaction_prompt">लेनदेन चुनें</string>
+    <string name="describe_issue_prompt">समस्या का विवरण दें</string>
+    <string name="describe_issue_placeholder">बताएं क्या हुआ...</string>
+    <string name="add_photo_doc">फोटो या दस्तावेज जोड़ें</string>
+    <string name="photo_attached">फोटो संलग्न किया गया ✓</string>
+    <string name="submit_dispute_btn">विवाद प्रस्तुत करें</string>
+
+    <!-- Dispute Confirmation -->
+    <string name="dispute_submitted_title">विवाद दर्ज हो गया</string>
+    <string name="dispute_submitted_msg">आपकी शिकायत सफलतापूर्वक दर्ज कर ली गई है।</string>
+    <string name="expected_response_time">अपेक्षित प्रतिक्रिया: 24 घंटे के भीतर</string>
+    <string name="track_dispute_btn">शिकायत ट्रैक करें</string>
+
+    <!-- My Complaints -->
+    <string name="my_complaints_title">मेरी शिकायतें</string>
+    <string name="no_complaints_msg">अभी तक कोई शिकायत दर्ज नहीं की गई है।</string>
+    <string name="ticket_id_label">टिकट आईडी</string>
+
+
+    <!-- Language Selection -->
+    <string name="select_language_title">भाषा चुनें</string>
+    <string name="select_language_subtitle">अपनी पसंदीदा ऐप भाषा चुनें</string>
+    <string name="continue_button">आगे बढ़ें</string>
+
+    <!-- Role & Auth -->
+    <string name="who_are_you">आप कौन हैं?</string>
+    <string name="select_role_subtitle">आगे बढ़ने के लिए अपनी भूमिका चुनें</string>
+    <string name="farmer_role_title">किसान</string>
+    <string name="farmer_role_subtitle">शेतकरी · किसान · ખેડૂતો</string>
+    <string name="farmer_role_desc">फसल बेचें, बाज़ार दरों की तुलना करें, खरीदार खोजें और भुगतान ट्रैक करें</string>
+    <string name="buyer_role_title">खरीदार / संस्था</string>
+    <string name="admin_role_title">एडमिन</string>
+    <string name="farmer_login_title">किसान लॉगिन</string>
+    <string name="enter_mobile_prompt">आगे बढ़ने के लिए अपना मोबाइल नंबर दर्ज करें</string>
+    <string name="mobile_number_label">मोबाइल नंबर</string>
+    <string name="send_otp_btn">ओटीपी भेजें</string>
+    <string name="verify_login_btn">सत्यापित करें और लॉगिन करें</string>
+    <string name="new_farmer_register_btn">🌾 नए किसान? यहाँ पंजीकरण करें</string>
+    <string name="register_title">किसान के रूप में पंजीकरण करें</string>
+    <string name="register_subtitle">अपना मुफ्त कृषिसेतु खाता बनाएं</string>
+    <string name="full_name_label">पूरा नाम</string>
+    <string name="village_city_label">गांव / शहर</string>
+    <string name="create_account_btn">🌾 खाता बनाएं और प्रोफ़ाइल सेट करें</string>
+    <string name="back_to_login">← लॉगिन पर वापस जाएं</string>
+
+    <!-- Home Screen -->
+    <string name="greeting_prefix">नमस्कार</string>
+    <string name="today_best_opp_title">आज का सबसे अच्छा अवसर</string>
+    <string name="today_best_opp_subtitle">पुणे मंडी या सीधे खरीदार को 800 किलो टमाटर बेचें</string>
+    <string name="quick_actions_header">त्वरित कार्य</string>
+    <string name="action_add_crop">फसल लॉट जोड़ें</string>
+    <string name="action_add_crop_sub">बिक्री लॉट बनाएं</string>
+    <string name="action_best_place">बेचने की सबसे अच्छी जगह</string>
+    <string name="action_best_place_sub">शुद्ध आय</string>
+    <string name="action_market_prices">बाज़ार भाव</string>
+    <string name="action_market_prices_sub">सतारा / पुणे / एपीएमसी</string>
+    <string name="action_compare_markets">मंडी तुलना</string>
+    <string name="action_compare_markets_sub">दूरी बनाम मूल्य</string>
+    <string name="action_find_buyers">खरीदार खोजें</string>
+    <string name="action_find_buyers_sub">सत्यापित खरीदार</string>
+    <string name="action_kisan_ai">किसान AI</string>
+    <string name="action_kisan_ai_sub">स्मार्ट सहायक</string>
+    <string name="action_profit_calc">लाभ कैलकुलेटर</string>
+    <string name="action_profit_calc_sub">अनुमानित शुद्ध लाभ</string>
+    <string name="action_schemes_map">योजनाएं एवं मानचित्र</string>
+    <string name="action_schemes_map_sub">सरकारी लाभ और नक्शा</string>
+    <string name="my_lots_header">मेरे फसल लॉट</string>
+    <string name="target_price_label">अपेक्षित मूल्य</string>
+    <string name="lot_id_label">लॉट आईडी</string>
+    <string name="quality_label">गुणवत्ता</string>
+
+    <!-- Create Lot Wizard -->
+    <string name="create_lot_wizard_title">फसल लॉट बनाएं</string>
+    <string name="step_progress">चरण %1$d / 5</string>
+    <string name="step1_title">चरण 1: अपनी फसल चुनें</string>
+    <string name="step2_title">चरण 2: मात्रा और मूल्य दर्ज करें</string>
+    <string name="step3_title">चरण 3: गुणवत्ता श्रेणी चुनें (एक ही विकल्प)</string>
+    <string name="step4_title">चरण 4: फसल की फोटो अपलोड करें</string>
+    <string name="step5_title">चरण 5: समीक्षा करें और लॉट बनाएं</string>
+    <string name="select_crop_label">फसल चुनें</string>
+    <string name="quantity_kg_label">मात्रा (किग्रा में)</string>
+    <string name="expected_price_label">अपेक्षित बिक्री मूल्य (₹ प्रति किग्रा)</string>
+    <string name="quality_grade_header">गुणवत्ता श्रेणी (केवल एक चुनें)</string>
+    <string name="grade_a_label">ग्रेड ए (निर्यात गुणवत्ता)</string>
+    <string name="grade_b_label">ग्रेड बी (मानक)</string>
+    <string name="grade_c_label">ग्रेड सी (स्थानीय)</string>
+    <string name="organic_toggle_label">जैविक / ऑर्गेनिक प्रमाणित</string>
+    <string name="organic_toggle_sub">यदि प्रमाणित जैविक है तो चुनें</string>
+    <string name="upload_photos_header">फसल की तस्वीरें</string>
+    <string name="photos_subtext">अच्छी तस्वीरों से खरीदार की प्रतिक्रिया 45% बढ़ती है</string>
+    <string name="review_summary_header">लॉट का विवरण</string>
+    <string name="create_lot_now_btn">🚀 अभी लॉट बनाएं</string>
+    <string name="est_gross_value">अनुमानित कुल मूल्य</string>
+
+    <!-- Market Prices & Comparison -->
+    <string name="market_prices_title">महाराष्ट्र बाज़ार भाव</string>
+    <string name="market_prices_subtitle">लाइव एपीएमसी और बाज़ार दरें</string>
+    <string name="highest_rate_label">उच्चतम दर</string>
+    <string name="current_rate_label">वर्तमान दर</string>
+    <string name="modal_price_label">मॉडल दर</string>
+    <string name="max_rate_label">अधिकतम दर</string>
+    <string name="price_trend_7days">7-दिवसीय मूल्य रुझान (सतारा / पुणे)</string>
+    <string name="compare_market_costs_btn">⚖️ बाज़ार लागतों की तुलना करें</string>
+    <string name="compare_market_sub">सतारा, कराड और पुणे के लिए परिवहन बनाम शुद्ध आय की गणना करें</string>
+    <string name="market_comparison_title">मंडी लागत तुलना</string>
+    <string name="net_realization_formula">कुल राजस्व - परिवहन लागत - कमीशन = आपकी जेब में शुद्ध राशि</string>
+    <string name="best_value_badge">सर्वोत्तम मूल्य</string>
+    <string name="view_recommended_deal_btn">🎯 अनुशंसित सौदा देखें</string>
+    <string name="est_net_label">अनुमानित शुद्ध राशि:</string>
+
+    <!-- Best Place to Sell & Sell or Wait -->
+    <string name="best_place_title">बेचने की सबसे अच्छी जगह</string>
+    <string name="top_recommendation_badge">शीर्ष सिफारिश</string>
+    <string name="gross_amount_label">कुल राशि</string>
+    <string name="transport_cost_label">परिवहन लागत (-)</string>
+    <string name="commission_fee_label">मंडी कमीशन (-)</string>
+    <string name="net_realization_title">अनुमानित शुद्ध आय</string>
+    <string name="sell_now_or_wait_title">अभी बेचें या प्रतीक्षा करें</string>
+    <string name="sell_now_recommendation">सिफारिश: अभी बेचें (SELL NOW)</string>
+    <string name="market_indicators_title">बाज़ार संकेतक विश्लेषण</string>
+    <string name="proceed_to_sell_btn">🌾 अभी लॉट बेचने के लिए आगे बढ़ें</string>
+
+    <!-- Buyer Marketplace & Offers -->
+    <string name="buyer_marketplace_title">खरीदार बाज़ार</string>
+    <string name="search_buyers_placeholder">खरीदार या शहर के नाम से खोजें...</string>
+    <string name="make_offer_btn">ऑफर दें</string>
+    <string name="digital_offer_title">डिजिटल खरीदार ऑफर</string>
+    <string name="offered_price_label">प्रस्तावित मूल्य</string>
+    <string name="negotiation_history_header">बातचीत का इतिहास</string>
+    <string name="accept_offer_btn">✅ ऑफर स्वीकार करें</string>
+    <string name="counter_offer_btn">💬 काउंटर ऑफर दें</string>
+    <string name="reject_offer_btn">❌ अस्वीकार करें</string>
+    <string name="offer_accepted_success">ऑफर स्वीकार कर लिया गया!</string>
+    <string name="select_logistics_btn">🚚 परिवहन चुनें</string>
+
+    <!-- Logistics & FPO -->
+    <string name="logistics_title">लॉजिस्टिक्स और परिवहन</string>
+    <string name="available_vehicles_header">उपलब्ध सत्यापित ड्राइवर और वाहन</string>
+    <string name="confirm_transport_btn">🚚 चयनित परिवहन की पुष्टि करें</string>
+    <string name="fpo_aggregation_title">FPO सामूहिक पूल</string>
+    <string name="join_fpo_btn">🤝 FPO लॉट में शामिल हों</string>
+
+    <!-- Profit Calculator -->
+    <string name="profit_calc_title">कृषि लाभ कैलकुलेटर</string>
+    <string name="calc_inputs_header">कैलकुलेटर इनपुट</string>
+    <string name="storage_cost_label">भंडारण लागत (₹)</string>
+    <string name="handling_cost_label">अन्य रखरखाव लागत (₹)</string>
+    <string name="total_expenses_label">कुल खर्च (-)</string>
+    <string name="gross_revenue_label">कुल राजस्व</string>
+
+    <!-- Payments & Schemes -->
+    <string name="payments_title">भुगतान और लेन-देन</string>
+    <string name="settlement_earnings_header">कुल भुगतान कमाई</string>
+    <string name="status_timeline_header">भुगतान स्थिति समयरेखा</string>
+    <string name="schemes_title">सरकारी योजनाएं</string>
+    <string name="benefit_label">लाभ</string>
+    <string name="eligibility_label">पात्रता</string>
+    <string name="documents_label">आवश्यक दस्तावेज़</string>
+
+    <!-- Status Labels -->
+    <string name="status_deal_confirmed">सौदा पक्का</string>
+    <string name="status_pickup_scheduled">पिकअप निर्धारित</string>
+    <string name="status_in_transit">रास्ते में</string>
+    <string name="status_delivered">डिलिवर किया गया</string>
+    <string name="status_payment_initiated">भुगतान शुरू</string>
+    <string name="status_payment_received">भुगतान प्राप्त</string>
+
+    <!-- Kisan AI & Map & Profile -->
+    <string name="kisan_ai_title">किसान AI सहायक</string>
+    <string name="ask_ai_placeholder">मराठी, हिंदी या अंग्रेजी में पूछें...</string>
+    <string name="map_title">कृषिसेतु नक्शा</string>
+    <string name="profile_title">किसान प्रोफ़ाइल</string>
+    <string name="select_language_setting">ऐप की भाषा (Language)</string>
+    <string name="logout_btn">🔒 लॉग आउट करें (Logout)</string>
+
+    <!-- General -->
+    <string name="verified_farmer">सत्यापित किसान</string>
+    <string name="verified_buyer">सत्यापित खरीदार</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="submit">सबमिट करें</string>
+
+    <!-- Cascading Registration Fields -->
+    <string name="state_label">राज्य</string>
+    <string name="district_label">जिला</string>
+    <string name="taluka_label">तालुका</string>
+    <string name="village_label">गांव</string>
+    <string name="select_state_prompt">राज्य चुनें</string>
+    <string name="select_district_prompt">जिला चुनें</string>
+    <string name="select_taluka_prompt">तालुका चुनें</string>
+    <string name="select_village_prompt">गांव चुनें</string>
+
+    <!-- eKYC & Document Verification -->
+    <string name="ekyc_card_title">कृषिसेतु eKYC पूरा करें और अपने दस्तावेज़ सत्यापित करवाएं</string>
+    <string name="ekyc_card_subtitle">अधिक विश्वसनीय और संपूर्ण कृषिसेतु अनुभव के लिए अपने दस्तावेज़ों को सत्यापित करें।</string>
+    <string name="verify_now_btn">अभी सत्यापित करें</string>
+    <string name="complete_ekyc_btn">eKYC पूरा करें</string>
+    <string name="verification_in_progress">दस्तावेज़ जमा किए गए — सत्यापन प्रगति पर है</string>
+    <string name="ekyc_verified">आपके दस्तावेज़ सत्यापित हैं ✓</string>
+
+    <!-- Document Verification Section -->
+    <string name="doc_verification_header">दस्तावेज़ सत्यापन (DOCUMENT VERIFICATION)</string>
+    <string name="aadhaar_card_label">आधार कार्ड (Aadhaar Card)</string>
+    <string name="seven_twelve_label">7/12 खसरा/खतौनी (7/12 Extract)</string>
+    <string name="gat_number_label">गट / खाता संख्या (GAT Number)</string>
+    <string name="bank_details_label">बैंक विवरण (Bank Details)</string>
+    <string name="upload_btn">अपलोड करें</string>
+    <string name="submit_docs_btn">सत्यापन के लिए दस्तावेज़ जमा करें</string>
+    <string name="not_submitted_status">जमा नहीं किया</string>
+    <string name="submitted_status">✓ जमा किया गया</string>
+    <string name="under_verification_status">सत्यापन जारी है</string>
+    <string name="verified_status">सत्यापित ✓</string>
+
+    <!-- Submission Popup -->
+    <string name="docs_submitted_title">दस्तावेज़ सफलतापूर्वक जमा किए गए</string>
+    <string name="docs_submitted_msg">आपके दस्तावेज़ों की समीक्षा की जाएगी और सबमिशन के 24 घंटे के भीतर सत्यापित किया जाएगा।</string>
+    <string name="got_it_btn">समझ गए (Got it)</string>
+
+    <!-- Scheme Banner -->
+    <string name="learn_more_btn">और जानें</string>
+    <string name="govt_schemes_banner_title">सरकारी योजनाएं और सहायता</string>
+</resources>
