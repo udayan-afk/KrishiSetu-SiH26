@@ -22,7 +22,7 @@ class KrishiSetuRepository {
     private val _currentFarmer = MutableStateFlow(
         FarmerUser(
             id = "FARM-101",
-            name = "Ramesh Patil",
+            name = "Vikram Jadhav",
             mobile = "9876543210",
             state = "Maharashtra",
             district = "Satara",
@@ -138,20 +138,57 @@ class KrishiSetuRepository {
     )
     val lots: StateFlow<List<CropLot>> = _lots.asStateFlow()
 
-    // Market Prices
-    private val _marketPrices = MutableStateFlow(
-        listOf(
-            MarketPriceData("M-01", "Tomato", "Satara Mandi", "Satara", 22.0, 18.0, 22.0, 24.0, 8, 400.0),
-            MarketPriceData("M-02", "Tomato", "Karad APMC", "Satara", 24.0, 20.0, 24.0, 26.0, 55, 1500.0),
-            MarketPriceData("M-03", "Tomato", "Pune Gultekdi", "Pune", 26.0, 22.0, 26.0, 28.0, 115, 2000.0),
-            MarketPriceData("M-04", "Tomato", "Kolhapur Market", "Kolhapur", 23.5, 19.0, 23.5, 25.0, 120, 2100.0),
-            MarketPriceData("M-05", "Tomato", "Nashik APMC", "Nashik", 25.0, 21.0, 25.0, 27.0, 210, 3200.0),
-            MarketPriceData("M-06", "Onion", "Satara Mandi", "Satara", 26.0, 22.0, 26.0, 29.0, 8, 450.0),
-            MarketPriceData("M-07", "Onion", "Pune Gultekdi", "Pune", 30.0, 25.0, 30.0, 33.0, 115, 2200.0),
-            MarketPriceData("M-08", "Wheat", "Karad APMC", "Satara", 32.0, 28.0, 32.0, 35.0, 55, 1600.0)
-        )
-    )
+    // Market Prices & Shared Market Selection State (35 Commodities × 30 Maharashtra Markets = 1,050 Demo Records)
+    val commodities: List<CommodityInfo> = DemoMarketDataCatalog.commodities
+    val marketYards: List<MarketYardInfo> = DemoMarketDataCatalog.markets
+
+    private val _marketPrices = MutableStateFlow(DemoMarketDataCatalog.generateAllMarketPrices())
     val marketPrices: StateFlow<List<MarketPriceData>> = _marketPrices.asStateFlow()
+
+    private val _selectedCommodity = MutableStateFlow("Tomato")
+    val selectedCommodity: StateFlow<String> = _selectedCommodity.asStateFlow()
+
+    private val _selectedCategory = MutableStateFlow(CommodityCategory.ALL)
+    val selectedCategory: StateFlow<CommodityCategory> = _selectedCategory.asStateFlow()
+
+    private val _selectedMarketId = MutableStateFlow("MKT-01")
+    val selectedMarketId: StateFlow<String> = _selectedMarketId.asStateFlow()
+
+    private val _comparisonQuantityKg = MutableStateFlow(800.0)
+    val comparisonQuantityKg: StateFlow<Double> = _comparisonQuantityKg.asStateFlow()
+
+    fun setSelectedCommodity(cropName: String) {
+        if (commodities.any { it.name.equals(cropName, ignoreCase = true) }) {
+            val matched = commodities.first { it.name.equals(cropName, ignoreCase = true) }
+            _selectedCommodity.value = matched.name
+        }
+    }
+
+    fun setSelectedMarketId(marketId: String) {
+        if (marketYards.any { it.id.equals(marketId, ignoreCase = true) }) {
+            val matched = marketYards.first { it.id.equals(marketId, ignoreCase = true) }
+            _selectedMarketId.value = matched.id
+        }
+    }
+
+    fun setSelectedCategory(category: CommodityCategory) {
+        _selectedCategory.value = category
+        val currentCrop = _selectedCommodity.value
+        val matchingCommodities = if (category == CommodityCategory.ALL) {
+            commodities
+        } else {
+            commodities.filter { it.category == category }
+        }
+        if (matchingCommodities.none { it.name == currentCrop }) {
+            matchingCommodities.firstOrNull()?.let { _selectedCommodity.value = it.name }
+        }
+    }
+
+    fun setComparisonQuantityKg(quantityKg: Double) {
+        if (quantityKg > 0.0 && !quantityKg.isNaN() && !quantityKg.isInfinite()) {
+            _comparisonQuantityKg.value = quantityKg
+        }
+    }
 
     // Buyer State
     private val _currentBuyerProfile = MutableStateFlow(
@@ -185,7 +222,7 @@ class KrishiSetuRepository {
 
     private val _buyerLots = MutableStateFlow(
         listOf(
-            BuyerLot("L-1", "KL-TOM-58291", "Ramesh Patil", "Tomato", 800.0, "Grade A", "Nashik · 42 km", 26.0, 98, "Available"),
+            BuyerLot("L-1", "KL-TOM-58291", "Vikram Jadhav", "Tomato", 800.0, "Grade A", "Nashik · 42 km", 26.0, 98, "Available"),
             BuyerLot("L-2", "KL-TOM-58105", "Suresh Jadhav", "Tomato", 1200.0, "Grade A", "Sinnar · 58 km", 25.0, 94, "Available"),
             BuyerLot("L-3", "KL-ONI-44821", "Priya More", "Onion", 600.0, "Grade B", "Niphad · 35 km", 18.0, 82, "Negotiating"),
             BuyerLot("L-4", "KL-POT-33214", "Anil Shinde", "Potato", 2000.0, "Grade A", "Dindori · 71 km", 14.0, 89, "Available"),
@@ -196,7 +233,7 @@ class KrishiSetuRepository {
 
     private val _buyerOffersList = MutableStateFlow(
         listOf(
-            BuyerOfferRecord("O-1", "OF-0128", "KL-TOM-58291", "Ramesh Patil", "Tomato", 800.0, 26.0, "Pending"),
+            BuyerOfferRecord("O-1", "OF-0128", "KL-TOM-58291", "Vikram Jadhav", "Tomato", 800.0, 26.0, "Pending"),
             BuyerOfferRecord("O-2", "OF-0127", "KL-TOM-57988", "Vijay Kulkarni", "Tomato", 500.0, 25.0, "Counter Sent"),
             BuyerOfferRecord("O-3", "OF-0124", "KL-ONI-44821", "Priya More", "Onion", 600.0, 17.0, "Accepted")
         )
@@ -215,7 +252,7 @@ class KrishiSetuRepository {
         listOf(
             BuyerPaymentRecord("P-1", "Priya More", "Onion", "Dec 3", 10200.0, "Paid"),
             BuyerPaymentRecord("P-2", "Anil Shinde", "Potato", "Dec 2", 28000.0, "Paid"),
-            BuyerPaymentRecord("P-3", "Ramesh Patil", "Tomato", "Dec 7", 19000.0, "Pending")
+            BuyerPaymentRecord("P-3", "Vikram Jadhav", "Tomato", "Dec 7", 19000.0, "Pending")
         )
     )
     val buyerPaymentsList: StateFlow<List<BuyerPaymentRecord>> = _buyerPaymentsList.asStateFlow()
@@ -351,7 +388,7 @@ class KrishiSetuRepository {
     // Kisan AI Messages
     private val _chatMessages = MutableStateFlow(
         listOf(
-            ChatMessage("MSG-1", "Kisan AI", "Namaskar Rameshji! 🙏 I am Kisan AI, your agricultural market assistant. Ask me anything in Marathi, Hindi, or English!\n\nOptions:\n• Where to sell Tomato?\n• Modal price explanation?\n• Crop insurance schemes?"),
+            ChatMessage("MSG-1", "Kisan AI", "Namaskar Vikramji! 🙏 I am Kisan AI, your agricultural market assistant. Ask me anything in Marathi, Hindi, or English!\n\nOptions:\n• Where to sell Tomato?\n• Modal price explanation?\n• Crop insurance schemes?"),
         )
     )
     val chatMessages: StateFlow<List<ChatMessage>> = _chatMessages.asStateFlow()
@@ -509,24 +546,61 @@ class KrishiSetuRepository {
         val userMsg = ChatMessage("MSG-${System.currentTimeMillis()}", "User", userText)
         _chatMessages.value = _chatMessages.value + userMsg
 
+        val lang = _selectedLanguage.value
         val aiReplyText = when {
-            userText.contains("tomato", ignoreCase = true) || userText.contains("टोमॅटो", ignoreCase = true) || userText.contains("टमाटर", ignoreCase = true) ->
-                "🍅 Based on current Maharashtra Mandi data:\n• Pune Gultekdi offers ₹26/kg (Best Net Realization)\n• Satara Mandi offers ₹22/kg\n• Karad APMC offers ₹24/kg\n\nRecommendation: SELL NOW in Pune or to FreshFoods Pvt Ltd (Direct Buyer) to save ₹2,000 commission!"
+            userText.contains("tomato", ignoreCase = true) || userText.contains("टोमॅटो", ignoreCase = true) || userText.contains("टमाटर", ignoreCase = true) -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "🍅 नमुना महाराष्ट्र मंडी दरांनुसार (Sample Data):\n• पुणे गुलटेकडी: ₹23/kg (सकाळी ₹24 -> दुपारी ₹22 -> सद्य ₹23/kg)\n• मुंबई वाशी APMC: ₹27.5/kg\n• सातारा APMC: ₹22.5/kg\n\nशिफारस: अधिक निव्वळ उत्पन्नासाठी पुणे/मुंबई मंडी किंवा थेट खरेदीदार तपासा!"
+                AppLanguage.HINDI ->
+                    "🍅 नमूना महाराष्ट्र मंडी दरों के अनुसार (Sample Data):\n• पुणे गुलटेकडी: ₹23/kg (सुबह ₹24 -> दोपहर ₹22 -> ताज़ा ₹23/kg)\n• मुंबई वाशी APMC: ₹27.5/kg\n• सातारा APMC: ₹22.5/kg\n\nसुझाव: बेहतर शुद्ध आय के लिए पुणे/मुंबई मंडी या सीधे खरीदार से तुलना करें!"
+                AppLanguage.ENGLISH ->
+                    "🍅 Based on sample Maharashtra Mandi data:\n• Pune Gultekdi: ₹23/kg (08:00 AM ₹24 -> 12:00 PM ₹22 -> 03:00 PM ₹23/kg)\n• Mumbai Vashi APMC: ₹27.5/kg\n• Satara APMC: ₹22.5/kg\n\nRecommendation: Compare transport-adjusted net realization in Pune/Mumbai or sell to verified direct buyers!"
+            }
 
-            userText.contains("modal", ignoreCase = true) ->
-                "📊 Modal Price is the most frequent trading price in the market. In Satara APMC today, Tomato Modal Price is ₹22/kg with Min ₹18/kg and Max ₹24/kg."
+            userText.contains("modal", ignoreCase = true) || userText.contains("मोडल", ignoreCase = true) || userText.contains("भाव", ignoreCase = true) -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "📊 मोडल भाव म्हणजे बाजारात सर्वाधिक व्यवहारांचा सरासरी दर. पुणे गुलटेकडी येथे टोमॅटोचा सद्य नमुना मोडल भाव ₹23/kg आहे (किमान ₹20.5/kg, कमाल ₹25.5/kg)."
+                AppLanguage.HINDI ->
+                    "📊 मोडल भाव बाजार में सबसे अधिक होने वाले सौदों का औसत भाव है। पुणे गुलटेकडी में टमाटर का ताज़ा नमूना मोडल भाव ₹23/kg है (न्यूनतम ₹20.5/kg, अधिकतम ₹25.5/kg)।"
+                AppLanguage.ENGLISH ->
+                    "📊 Modal Price is the most frequent trading price in the market. In Pune Gultekdi (Sample Data), Tomato Modal Price is ₹23/kg with Min ₹20.5/kg and Max ₹25.5/kg."
+            }
 
-            userText.contains("lot", ignoreCase = true) || userText.contains("create", ignoreCase = true) ->
-                "📦 To create a lot:\n1. Tap '+ Add Crop' on Home\n2. Select Crop & Quantity\n3. Choose Quality Grade (Single Choice)\n4. Tap 'Create Lot'\nYour lot will instantly be visible to 50+ verified buyers!"
+            userText.contains("lot", ignoreCase = true) || userText.contains("create", ignoreCase = true) || userText.contains("लॉट", ignoreCase = true) || userText.contains("पीक", ignoreCase = true) -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "📦 पीक लॉट तयार करण्यासाठी:\n1. होम स्क्रीनवर '+ पीक जोडा' वर टॅप करा\n2. पीक आणि वजन (kg) निवडा\n3. दर्जा श्रेणी (Grade A/B/C) निवडा\n4. 'पीक लॉट तयार करा' दाबा!"
+                AppLanguage.HINDI ->
+                    "📦 फसल लॉट बनाने के लिए:\n1. होम स्क्रीन पर '+ फसल जोड़ें' दबाएं\n2. फसल और मात्रा (kg) चुनें\n3. गुणवत्ता ग्रेड (Grade A/B/C) चुनें\n4. 'फसल लॉट बनाएं' पर टैप करें!"
+                AppLanguage.ENGLISH ->
+                    "📦 To create a lot:\n1. Tap '+ Add Crop' on Home\n2. Select Crop & Quantity\n3. Choose Quality Grade (Single Choice)\n4. Tap 'Create Lot'\nYour lot will instantly be visible to verified buyers!"
+            }
 
-            userText.contains("insurance", ignoreCase = true) || userText.contains("scheme", ignoreCase = true) ->
-                "🌾 Recommended Scheme: PM Fasal Bima Yojana (PMFBY). Covers up to 90% crop loss due to rain/drought. Premium is only 1.5% - 2% for farmers!"
+            userText.contains("insurance", ignoreCase = true) || userText.contains("scheme", ignoreCase = true) || userText.contains("योजना", ignoreCase = true) || userText.contains("विमा", ignoreCase = true) || userText.contains("बीमा", ignoreCase = true) -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "🌾 शिफारस केलेली योजना: प्रधानमंत्री फसल विमा योजना (PMFBY). नैसर्गिक आपत्तीमुळे पिकांच्या नुकसानीस संरक्षण मिळते. शेतकऱ्यांसाठी फक्त १.५% ते २% प्रीमियम!"
+                AppLanguage.HINDI ->
+                    "🌾 अनुशंसित योजना: प्रधानमंत्री फसल बीमा योजना (PMFBY)। बारिश या सूखे से फसल नुकसान पर सुरक्षा। किसानों के लिए केवल 1.5% - 2% प्रीमियम!"
+                AppLanguage.ENGLISH ->
+                    "🌾 Recommended Scheme: PM Fasal Bima Yojana (PMFBY). Covers crop loss due to rain/drought. Premium is only 1.5% - 2% for farmers!"
+            }
 
-            userText.contains("payment", ignoreCase = true) ->
-                "💳 Your latest transaction TX-9001 (₹19,000) for 800 kg Tomato is currently 'Deal Confirmed'. Escrow funds are secured."
+            userText.contains("payment", ignoreCase = true) || userText.contains("पेमेंट", ignoreCase = true) || userText.contains("भुगतान", ignoreCase = true) -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "💳 तुमचा शेवटचा व्यवहार TX-9001 (₹19,000, ८०० किलो टोमॅटो) सध्या 'व्यवहार निश्चित' (Deal Confirmed) स्थितीत आहे."
+                AppLanguage.HINDI ->
+                    "💳 आपका नवीनतम लेनदेन TX-9001 (₹19,000, 800 किलो टमाटर) वर्तमान में 'सौदा पक्का' (Deal Confirmed) स्थिति में है।"
+                AppLanguage.ENGLISH ->
+                    "💳 Your latest transaction TX-9001 (₹19,000) for 800 kg Tomato is currently 'Deal Confirmed'. Escrow funds are secured."
+            }
 
-            else ->
-                "💡 KrishiSetu Tip: Selling directly to verified processors yields an average 18% higher net income than local traditional mandis."
+            else -> when (lang) {
+                AppLanguage.MARATHI ->
+                    "💡 कृषीसेतू टीप: 'बाजार तुलना' स्क्रीनवर ३५ पिके आणि ३० महाराष्ट्र बाजार समित्यांचे वाहतूक खर्चासह निव्वळ उत्पन्न तपासा!"
+                AppLanguage.HINDI ->
+                    "💡 कृषिसेतु टिप: 'बाजार तुलना' स्क्रीन पर 35 फसलों और 30 महाराष्ट्र मंडियों की परिवहन खर्च सहित शुद्ध आय की तुलना करें!"
+                AppLanguage.ENGLISH ->
+                    "💡 KrishiSetu Tip: Compare transport-adjusted net realization across 35 commodities and 30 Maharashtra markets on the Compare Markets screen!"
+            }
         }
 
         val aiMsg = ChatMessage("MSG-AI-${System.currentTimeMillis()}", "Kisan AI", aiReplyText)
@@ -638,7 +712,7 @@ class KrishiSetuRepository {
     // Admin State & Operations
     private val _adminFarmers = MutableStateFlow(
         listOf(
-            AdminFarmerRecord("ADM-F-1", "Ramesh Patil", "Nashik, MH", "Maharashtra", 2, "Pending Verification"),
+            AdminFarmerRecord("ADM-F-1", "Vikram Jadhav", "Nashik, MH", "Maharashtra", 2, "Pending Verification"),
             AdminFarmerRecord("ADM-F-2", "Suresh Jadhav", "Sinnar, MH", "Maharashtra", 1, "Active", "Verified", "Verified", "Verified", "Verified"),
             AdminFarmerRecord("ADM-F-3", "Priya More", "Niphad, MH", "Maharashtra", 1, "Active", "Verified", "Verified", "Verified", "Verified"),
             AdminFarmerRecord("ADM-F-4", "Santosh Shinde", "Satara, MH", "Maharashtra", 0, "Pending Verification"),
@@ -670,7 +744,7 @@ class KrishiSetuRepository {
 
     fun approveAdminFarmer(farmerId: String) {
         _adminFarmers.value = _adminFarmers.value.map { f ->
-            if (f.id == farmerId || f.name.contains("Ramesh", ignoreCase = true)) {
+            if (f.id == farmerId || f.name.contains("Vikram", ignoreCase = true)) {
                 f.copy(
                     status = "Onboarded",
                     aadhaarStatus = "Verified",
@@ -681,7 +755,7 @@ class KrishiSetuRepository {
             } else f
         }
 
-        // Conceptually connect to current farmer if Ramesh Patil
+        // Conceptually connect to current farmer if Vikram Jadhav
         _currentFarmer.value = _currentFarmer.value.copy(
             verified = true,
             ekycStatus = EkycStatus.VERIFIED,
@@ -694,7 +768,7 @@ class KrishiSetuRepository {
 
     fun rejectAdminFarmer(farmerId: String, reason: String) {
         _adminFarmers.value = _adminFarmers.value.map { f ->
-            if (f.id == farmerId || f.name.contains("Ramesh", ignoreCase = true)) {
+            if (f.id == farmerId || f.name.contains("Vikram", ignoreCase = true)) {
                 f.copy(status = "Rejected", rejectionReason = reason)
             } else f
         }

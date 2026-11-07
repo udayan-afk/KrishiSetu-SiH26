@@ -143,7 +143,7 @@
     <string name="grade_a_label">श्रेणी अ (निर्यात दर्जा)</string>
     <string name="grade_b_label">श्रेणी ब (मानक दर्जा)</string>
     <string name="grade_c_label">श्रेणी क (स्थानिक दर्जा)</string>
-    <string name="organic_toggle_label">जैविक / सेंद्रिय प्रमाणित (Organic Certified)</string>
+    <string name="organic_toggle_label">सेंद्रिय प्रमाणित</string>
     <string name="organic_toggle_sub">सेंद्रिय प्रमाणपत्र असल्यास होय निवडा</string>
     <string name="upload_photos_header">पिकाचे फोटो</string>
     <string name="photos_subtext">उत्कृष्ट फोटोंमुळे खरेदीदारांचा प्रतिसाद 45% वाढतो</string>
@@ -153,50 +153,50 @@
 
     <!-- Market Prices & Comparison -->
     <string name="market_prices_title">महाराष्ट्र बाजारभाव</string>
-    <string name="market_prices_subtitle">थेट एपीएमसी व बाजार दर</string>
-    <string name="highest_rate_label">उच्चतम दर</string>
-    <string name="current_rate_label">सध्याचा दर</string>
-    <string name="modal_price_label">मॉडल दर</string>
-    <string name="max_rate_label">कमाल दर</string>
-    <string name="price_trend_7days">7-दिवसांचा दर कल (सातारा / पुणे)</string>
-    <string name="compare_market_costs_btn">⚖️ बाजार खर्चाची तुलना करा</string>
+    <string name="market_prices_subtitle">थेट बाजारपेठ व मंडी किंमत</string>
+    <string name="highest_rate_label">सर्वोच्च किंमत</string>
+    <string name="current_rate_label">सध्याची किंमत</string>
+    <string name="modal_price_label">मोडल किंमत</string>
+    <string name="max_rate_label">कमाल किंमत</string>
+    <string name="price_trend_7days">७-दिवसांचा किंमत कल (सातारा / पुणे)</string>
+    <string name="compare_market_costs_btn">⚖️ बाजारपेठ खर्चाची तुलना करा</string>
     <string name="compare_market_sub">सातारा, कराड आणि पुण्यासाठी वाहतूक विरूद्ध निव्वळ उत्पन्नाची गणना करा</string>
-    <string name="market_comparison_title">बाजार खर्च तुलना</string>
+    <string name="market_comparison_title">बाजारपेठ खर्च तुलना</string>
     <string name="net_realization_formula">एकूण महसूल - वाहतूक खर्च - कमिशन = तुमच्या खिशातील निव्वळ रक्कम</string>
     <string name="best_value_badge">सर्वोत्तम मूल्य</string>
     <string name="view_recommended_deal_btn">🎯 शिफारस केलेला व्यवहार पहा</string>
     <string name="est_net_label">अंदाजे निव्वळ रक्कम:</string>
 
     <!-- Best Place to Sell & Sell or Wait -->
-    <string name="best_place_title">विक्रीसाठी सर्वोत्तम जागा</string>
+    <string name="best_place_title">विक्रीसाठी सर्वोत्तम बाजारपेठ</string>
     <string name="top_recommendation_badge">सर्वोत्तम शिफारस</string>
     <string name="gross_amount_label">एकूण रक्कम</string>
     <string name="transport_cost_label">वाहतूक खर्च (-)</string>
-    <string name="commission_fee_label">मंडी कमिशन (-)</string>
+    <string name="commission_fee_label">बाजारपेठ कमिशन (-)</string>
     <string name="net_realization_title">अंदाजे निव्वळ उत्पन्न</string>
-    <string name="sell_now_or_wait_title">आता विका की वाट पहा engine</string>
-    <string name="sell_now_recommendation">शिफारस: आताच विका (SELL NOW)</string>
-    <string name="market_indicators_title">बाजार निर्देशक विश्लेषण</string>
-    <string name="proceed_to_sell_btn">🌾 आता लॉट विकण्यासाठी पुढे जा</string>
+    <string name="sell_now_or_wait_title">आता विका की वाट पहा</string>
+    <string name="sell_now_recommendation">शिफारस: आताच विक्री करा</string>
+    <string name="market_indicators_title">बाजारपेठ निर्देशक विश्लेषण</string>
+    <string name="proceed_to_sell_btn">🌾 आता पीक लॉट विकण्यासाठी पुढे जा</string>
 
     <!-- Buyer Marketplace & Offers -->
     <string name="buyer_marketplace_title">खरेदीदार बाजारपेठ</string>
     <string name="search_buyers_placeholder">खरेदीदार किंवा शहराचे नाव शोधा...</string>
-    <string name="make_offer_btn">ऑफर करा</string>
+    <string name="make_offer_btn">ऑफर द्या</string>
     <string name="digital_offer_title">डिजिटल खरेदीदार ऑफर</string>
-    <string name="offered_price_label">दिलेला दर</string>
+    <string name="offered_price_label">दिलेली किंमत</string>
     <string name="negotiation_history_header">वाटाघाटीचा इतिहास</string>
     <string name="accept_offer_btn">✅ ऑफर स्वीकारा</string>
-    <string name="counter_offer_btn">💬 काउंटर ऑफर द्या</string>
+    <string name="counter_offer_btn">💬 प्रति-ऑफर द्या</string>
     <string name="reject_offer_btn">❌ नाकारा</string>
     <string name="offer_accepted_success">ऑफर स्वीकारली!</string>
     <string name="select_logistics_btn">🚚 वाहतूक निवडा</string>
 
     <!-- Logistics & FPO -->
-    <string name="logistics_title">वाहतूक आणि लॉजिस्टिक</string>
-    <string name="available_vehicles_header">उपलब्ध वाहने व ड्रायव्हर्स</string>
+    <string name="logistics_title">वाहतूक आणि वितरण</string>
+    <string name="available_vehicles_header">उपलब्ध वाहने व चालक</string>
     <string name="confirm_transport_btn">🚚 निवडलेली वाहतूक निश्चित करा</string>
-    <string name="fpo_aggregation_title">FPO एकत्रिकरण लॉट</string>
+    <string name="fpo_aggregation_title">शेतकरी उत्पादक संस्था (FPO) सामूहिक विक्री</string>
     <string name="join_fpo_btn">🤝 FPO लॉटमध्ये सामील व्हा</string>
 
     <!-- Profit Calculator -->
@@ -277,4 +277,186 @@
     <!-- Scheme Banner -->
     <string name="learn_more_btn">अधिक माहिती</string>
     <string name="govt_schemes_banner_title">शासकीय योजना आणि मदत</string>
+
+    <!-- Market Prices, Intraday Timeline, Auction & Comparison Expansion -->
+    <string name="demo_data_badge">नमुना डेटा</string>
+    <string name="demo_data_subtitle">स्पर्धा प्रात्यक्षिकासाठी ३५ पिके × ३० महाराष्ट्र बाजारपेठांचे नमुना दर</string>
+    <string name="search_commodity_or_market_hint">३५ पिके किंवा ३० महाराष्ट्र बाजारपेठा शोधा…</string>
+    <string name="category_all">सर्व</string>
+    <string name="category_vegetables">भाजीपाला</string>
+    <string name="category_fruits">फळे</string>
+    <string name="category_grains_pulses">धान्य आणि कडधान्ये</string>
+    <string name="lowest_rate_label">किमान किंमत</string>
+    <string name="avg_modal_label">सरासरी मोडल</string>
+    <string name="markets_count_label">बाजारपेठा</string>
+    <string name="intraday_timeline_title">दिवसभरातील किंमत कालरेषा</string>
+    <string name="intraday_timeline_subtitle">वेळेनुसार नोंदवलेले स्वतंत्र बाजारभाव</string>
+    <string name="select_market_timeline_label">बाजारपेठ निवडा</string>
+    <string name="session_morning">सकाळचे सत्र (सकाळी ०८:००)</string>
+    <string name="session_midday">दुपारचे सत्र (दुपारी १२:००)</string>
+    <string name="session_afternoon">ताजी उपलब्ध किंमत (दुपारी ०३:००)</string>
+    <string name="session_daily_report">दैनिक बाजार अहवाल (सकाळी ११:३०)</string>
+    <string name="single_observation_notice">या बाजारपेठेसाठी आज एकच अधिकृत नमुना नोंद उपलब्ध आहे. सकाळ/दुपारचे काल्पनिक दर जोडलेले नाहीत.</string>
+    <string name="stale_data_warning">विलंबित अद्यतन: या बाजारपेठेचा डेटा ४ तासांपूर्वीचा आहे.</string>
+    <string name="opening_observation_label">सुरुवातीची नोंद</string>
+    <string name="change_vs_prev_label">मागील किमतीच्या तुलनेत</string>
+    <string name="market_type_reported">दैनिक अहवाल बाजारपेठ</string>
+    <string name="market_type_intraday">दिवसभरात अद्ययावत बाजारपेठ</string>
+    <string name="market_type_auction">लिलाव / बोली बाजारपेठ</string>
+    <string name="data_status_sample">नमुना डेटा</string>
+    <string name="data_status_reported">नोंदवलेली किंमत</string>
+    <string name="data_status_live">थेट</string>
+    <string name="auction_summary_title">नमुना लिलाव सारांश</string>
+    <string name="sample_auction_badge">नमुना लिलाव</string>
+    <string name="auction_status_label">लिलाव स्थिती</string>
+    <string name="auction_status_not_started">सुरू झालेला नाही</string>
+    <string name="auction_status_open">सुरू आहे</string>
+    <string name="auction_status_closed">बंद झाला</string>
+    <string name="auction_window_label">लिलावाची वेळ</string>
+    <string name="valid_bids_label">वैध नमुना बोली</string>
+    <string name="current_highest_bid_label">सध्याची सर्वोच्च वैध बोली</string>
+    <string name="winning_bid_label">विजयी बोली (अंतिम)</string>
+    <string name="no_bids_yet_label">लिलाव अद्याप सुरू झालेला नाही</string>
+    <string name="auction_disclaimer_text">हा केवळ प्रात्यक्षिकासाठी नमुना लिलाव डेटा आहे. ही किंमत मोडल दरापेक्षा वेगळी असून थेट व्यापारी बोली नाही.</string>
+    <string name="commodity_load_config_title">पीक आणि प्रमाण निवड</string>
+    <string name="selected_commodity_label">निवडलेले पीक</string>
+    <string name="quick_select_commodity_label">झटपट पीक निवड</string>
+    <string name="custom_quantity_input_label">मालाचे प्रमाण (किलो)</string>
+    <string name="preset_quantity_label">झटपट प्रमाण पर्याय</string>
+    <string name="sort_markets_by_label">३० महाराष्ट्र बाजारपेठा क्रमवारी</string>
+    <string name="sort_best_net">सर्वोत्तम निव्वळ उत्पन्न</string>
+    <string name="sort_highest_price">सर्वोच्च किंमत / किलो</string>
+    <string name="sort_nearest_distance">सर्वात जवळचे अंतर</string>
+    <string name="sort_lowest_transport">कमीत कमी वाहतूक खर्च</string>
+    <string name="best_market_for_load_badge">सर्वोत्तम बाजारपेठ —</string>
+    <string name="gross_revenue_short">एकूण रक्कम</string>
+    <string name="transport_cost_short">वाहतूक खर्च</string>
+    <string name="net_realization_short">अंदाजे निव्वळ उत्पन्न</string>
+    <string name="gain_vs_lowest_label">सर्वात कमी किमतीच्या बाजारपेठेपेक्षा अधिक नफा</string>
+    <string name="no_matching_markets_msg">तुमच्या शोधाशी जुळणारी कोणतीही बाजारपेठ आढळली नाही.</string>
+    <string name="tap_card_for_timeline_hint">किंमत कालरेषा आणि लिलाव स्थिती पाहण्यासाठी खालील कोणत्याही बाजारपेठ कार्डवर टॅप करा</string>
+
+    <!-- Targeted Localization Completion: Units & Common -->
+    <string name="kg_unit">किलो</string>
+    <string name="km_unit">किमी</string>
+    <string name="crops_count_label">पिके</string>
+    <string name="yes_label">होय</string>
+    <string name="no_label">नाही</string>
+    <string name="clear_search_btn">शोध साफ करा</string>
+    <string name="next_step_btn">पुढे</string>
+
+    <!-- 1. Crop Lot — Section 1: Crop Selection & Wizard -->
+    <string name="choose_your_crop_subtitle">महाराष्ट्रातील ३५ पिकांमधून तुमचे पीक निवडा</string>
+    <string name="crop_category_label">पिकाचा प्रकार</string>
+    <string name="selected_crop_banner_label">निवडलेले पीक</string>
+    <string name="search_crop_placeholder">पिकाचे नाव शोधा…</string>
+    <string name="crop_selection_instruction">खालील पिकाचा प्रकार निवडा किंवा नाव शोधा आणि पीक निवडण्यासाठी कार्डवर टॅप करा.</string>
+    <string name="no_crops_found_msg">तुमच्या शोधाशी जुळणारे कोणतेही पीक आढळले नाही.</string>
+    <string name="crop_required_error">पुढे जाण्यासाठी कृपया पीक निवडा.</string>
+    <string name="quantity_required_error">कृपया ० किलोपेक्षा जास्त वैध प्रमाण प्रविष्ट करा.</string>
+    <string name="price_required_error">कृपया प्रति किलो वैध अपेक्षित किंमत प्रविष्ट करा.</string>
+    <string name="quality_required_error">कृपया एक गुणवत्ता श्रेणी निवडा.</string>
+    <string name="quantity_placeholder">उदा. 800</string>
+    <string name="price_placeholder">उदा. 26</string>
+    <string name="photos_selected_mock">३ नमुना फोटो निवडले आहेत</string>
+    <string name="tap_to_capture_photos">पिकाचे फोटो काढण्यासाठी किंवा बदलण्यासाठी येथे टॅप करा</string>
+
+    <!-- 2. Best Marketplace & Sell Now or Wait -->
+    <string name="best_place_subtitle">बाजारपेठ शिफारस · %1$s</string>
+    <string name="best_net_market_identified_title">सर्वोत्तम निव्वळ उत्पन्न देणारी बाजारपेठ (%1$s)</string>
+    <string name="best_net_market_identified_sub">%2$d %3$s प्रमाणासाठी महाराष्ट्रातील %1$d बाजारपेठांमधून निवडलेले (नमुना डेटा).</string>
+    <string name="verified_market_badge">सत्यापित बाजारपेठ</string>
+    <string name="best_place_crop_qty_district_line">पीक: %1$s · प्रमाण: %2$d %3$s · जिल्हा: %4$s (%5$d %6$s)</string>
+    <string name="estimated_transport_cost_label">अंदाजे वाहतूक खर्च (-)</string>
+    <string name="data_source_label">डेटा स्रोत</string>
+    <string name="gain_vs_local_mandi">+₹%1$d\nस्थानिक बाजारपेठेपेक्षा जास्त</string>
+    <string name="comparison_with_local_title">%1$s सोबत तुलना</string>
+    <string name="local_market_metrics_line">स्थानिक किंमत: ₹%1$s/%2$s · वाहतूक: ₹%3$d · स्थानिक निव्वळ: ₹%4$d</string>
+    <string name="higher_net_in_best_market_msg">%1$s येथे विक्री केल्यास वाहतूक खर्च वजा जाता अंदाजे +₹%2$d अधिक निव्वळ उत्पन्न मिळते.</string>
+    <string name="local_market_is_best_msg">या प्रमाणासाठी सध्या %1$s येथेच सर्वाधिक निव्वळ उत्पन्न मिळते.</string>
+    <string name="best_place_warning_note">टीप: निव्वळ उत्पन्न हे एकूण रकमेतून अंदाजे वाहतूक खर्च वजा करून काढले आहे.</string>
+    <string name="no_markets_available_for_crop">या पिकासाठी सध्या बाजारभाव उपलब्ध नाहीत.</string>
+    <string name="sell_or_wait_subtitle">बाजारपेठ कल तुलना · %1$s</string>
+    <string name="sell_now_heuristic_badge">शिफारस: आताच विक्री करा</string>
+    <string name="wait_monitor_heuristic_badge">शिफारस: किंमत तपासा / प्रतीक्षा करा</string>
+    <string name="trend_summary_heading">%1$s — बाजारपेठ कल सारांश</string>
+    <string name="trend_summary_description">%1$s साठी ३० महाराष्ट्र बाजारपेठांमधील सर्वोच्च नमुना किंमत %3$s येथे ₹%2$s/किलो आहे (राज्य सरासरी: ₹%4$s/किलो).</string>
+    <string name="highest_market_rate_row">सर्वोच्च बाजारपेठ किंमत</string>
+    <string name="lowest_market_rate_row">किमान बाजारपेठ किंमत</string>
+    <string name="thirty_market_avg_rate_row">३० बाजारपेठांची सरासरी किंमत</string>
+    <string name="seven_day_sample_trend_row">७-दिवसांचा किंमत कल (सर्वोच्च बाजारपेठ)</string>
+    <string name="storage_perishability_row">साठवणूक व टिकवण क्षमता</string>
+    <string name="shelf_life_vegetables">नाशवंत पीक (ताजा भाजीपाला — लवकर विक्री उपयुक्त)</string>
+    <string name="shelf_life_fruits">मध्यम टिकवण क्षमता (ताजी फळे)</string>
+    <string name="shelf_life_grains">जास्त टिकवण क्षमता (कोरडी साठवणूक शक्य)</string>
+    <string name="trend_disclaimer_notice">टीप: हे निर्देशक केवळ प्रात्यक्षिकासाठी नमुना आकडेवारीवर आधारित आहेत; हे अधिकृत शासकीय अंदाज नाहीत.</string>
+
+    <!-- 3. Find Buyer & Digital Offers -->
+    <string name="buyer_marketplace_subtitle">सत्यापित प्रक्रिया उद्योग, व्यापारी आणि FPO</string>
+    <string name="filter_by_crop_label">पिकानुसार खरेदीदार निवडा</string>
+    <string name="buyer_requirement_line">आवश्यक पीक: %1$s · प्रमाण: %2$d %3$s</string>
+    <string name="on_time_payment_history_format">%1$d%% वेळेवर पेमेंट इतिहास</string>
+    <string name="buyer_contact_label">संपर्क: %1$s</string>
+    <string name="contact_buyer_btn">📞 खरेदीदाराशी संपर्क करा</string>
+    <string name="contact_buyer_dialog_title">खरेदीदार संपर्क तपशील</string>
+    <string name="buyer_company_label">कंपनी / संस्था</string>
+    <string name="buyer_type_label">खरेदीदार प्रकार</string>
+    <string name="buyer_location_label">ठिकाण</string>
+    <string name="buyer_phone_label">मोबाईल क्रमांक</string>
+    <string name="no_buyers_found_title">कोणतेही खरेदीदार आढळले नाहीत</string>
+    <string name="no_buyers_found_sub">तुमच्या शोधाशी किंवा निवडलेल्या पिकाशी जुळणारे सत्यापित खरेदीदार आढळले नाहीत.</string>
+    <string name="offer_id_label">ऑफर क्रमांक</string>
+    <string name="crop_lot_label">पीक लॉट</string>
+    <string name="deal_confirmed_proceed_msg">%1$s सोबत व्यवहार निश्चित झाला आहे. आता वाहतूक निवडा.</string>
+
+    <!-- 4. Government Schemes -->
+    <string name="schemes_subtitle">कृषी अनुदान, आर्थिक मदत आणि पीक विमा</string>
+    <string name="schemes_intro_banner">शेतकऱ्यांच्या थेट मदतीसाठी केंद्र आणि महाराष्ट्र शासनाच्या पात्र शासकीय योजनांची माहिती पहा.</string>
+    <string name="how_to_apply_label">अर्ज करण्याची पद्धत</string>
+    <string name="official_source_label">अधिकृत स्रोत</string>
+    <string name="official_source_value">कृषी व शेतकरी कल्याण मंत्रालय</string>
+    <string name="official_portal_label">अधिकृत संकेतस्थळ</string>
+    <string name="apply_or_view_scheme_btn">📋 अर्ज माहिती पहा</string>
+    <string name="schemes_disclaimer_text">अस्वीकरण: ही माहिती शेतकऱ्यांच्या मार्गदर्शनासाठी दिली आहे. अद्ययावत मुदतीसाठी जवळच्या महा-ई-सेवा / CSC केंद्राशी किंवा अधिकृत शासकीय संकेतस्थळाशी संपर्क साधा.</string>
+    <string name="scheme_1_title">पीएम-किसान सन्मान निधी (PM-KISAN)</string>
+    <string name="scheme_1_category">थेट उत्पन्न सहाय्य</string>
+    <string name="scheme_1_desc">शेतकरी कुटुंबांना थेट बँक खात्यात आर्थिक सहाय्य देणारी केंद्र शासनाची योजना.</string>
+    <string name="scheme_1_benefit">प्रति वर्ष ₹६,००० (३ समान हप्त्यांमध्ये थेट बँक खात्यात जमा)</string>
+    <string name="scheme_1_eligibility">२ हेक्टरपर्यंत लागवडीयोग्य जमीन असलेले अल्प व अत्यल्प भूधारक शेतकरी.</string>
+    <string name="scheme_1_docs">आधार कार्ड, जमिनीचा ७/१२ व ८-अ उतारा, बँक पासबुक</string>
+    <string name="scheme_1_apply">अधिकृत pmkisan.gov.in पोर्टलवर किंवा जवळच्या सामाईक सुविधा केंद्रात (CSC / महा-ई-सेवा) अर्ज करा.</string>
+    <string name="scheme_2_title">प्रधानमंत्री पीक विमा योजना (PMFBY)</string>
+    <string name="scheme_2_category">पीक विमा संरक्षण</string>
+    <string name="scheme_2_desc">अवकाळी पाऊस, दुष्काळ आणि नैसर्गिक आपत्तीमुळे होणाऱ्या पिकांच्या नुकसानीसाठी विमा संरक्षण.</string>
+    <string name="scheme_2_benefit">नैसर्गिक आपत्तीमुळे पिकाचे नुकसान झाल्यास आर्थिक नुकसान भरपाई.</string>
+    <string name="scheme_2_eligibility">अधिसूचित क्षेत्रात अधिसूचित पिके घेणारे सर्व शेतकरी.</string>
+    <string name="scheme_2_docs">पीक पेरा प्रमाणपत्र, आधार कार्ड, ७/१२ उतारा, बँक खाते तपशील</string>
+    <string name="scheme_2_apply">पिकाच्या अंतिम मुदतीपूर्वी बँक शाखा, CSC केंद्र किंवा pmfby.gov.in पोर्टलद्वारे नोंदणी करा.</string>
+    <string name="scheme_3_title">ई-नाम राष्ट्रीय कृषी बाजारपेठ योजना (e-NAM)</string>
+    <string name="scheme_3_category">बाजारपेठ जोडणी</string>
+    <string name="scheme_3_desc">पारदर्शक लिलाव आणि चांगल्या किमतीसाठी देशातील बाजारपेठांना जोडणारे ऑनलाइन व्यासपीठ.</string>
+    <string name="scheme_3_benefit">मध्यस्थांशिवाय थेट राष्ट्रीय बाजारपेठेत शेतमाल विक्री आणि थेट बँक खात्यात पेमेंट.</string>
+    <string name="scheme_3_eligibility">महाराष्ट्रातील ई-नाम जोडलेल्या बाजार समित्यांमधील नोंदणीकृत शेतकरी.</string>
+    <string name="scheme_3_docs">बाजार समिती नोंदणी, आधार कार्ड, बँक पासबुक</string>
+    <string name="scheme_3_apply">स्थानिक बाजार समिती कार्यालयात किंवा enam.gov.in पोर्टलवर मोफत नोंदणी करा.</string>
+
+    <!-- 5. FPO Trading -->
+    <string name="fpo_aggregation_subtitle">चांगल्या घाऊक किमतीसाठी इतर शेतकऱ्यांसोबत पीक प्रमाण एकत्र करा</string>
+    <string name="why_join_fpo_title">शेतकरी उत्पादक संस्था (FPO) लॉटमध्ये का सामील व्हावे?</string>
+    <string name="why_join_fpo_sub">एकत्रित मोठ्या पुरवठ्यामुळे मोठ्या प्रक्रिया उद्योगांकडून प्रति किलो ₹२ ते ₹३ अधिक किंमत मिळते आणि वाहतूक खर्च वाचतो.</string>
+    <string name="fpo_status_open">संकलन सुरू आहे</string>
+    <string name="fpo_status_ready">लक्ष्य पूर्ण · विक्रीसाठी तयार</string>
+    <string name="fpo_crop_target_line">पीक: %1$s · सहभागी शेतकरी: %2$d</string>
+    <string name="fpo_total_quantity_line">एकत्रित प्रमाण: %1$d / %2$d %3$s</string>
+    <string name="fpo_remaining_qty_line">उर्वरित आवश्यक प्रमाण: %1$d %2$s</string>
+    <string name="fpo_offered_price_label">घाऊक ऑफर किंमत</string>
+    <string name="fpo_available_offers_label">उपलब्ध ऑफर: सत्यापित प्रक्रिया उद्योग घाऊक खरेदी करार</string>
+    <string name="join_fpo_dialog_title">FPO सामूहिक लॉटमध्ये सामील व्हा</string>
+    <string name="join_fpo_qty_prompt">%1$s मध्ये जोडण्यासाठी तुमच्या पिकाचे प्रमाण (किलोमध्ये) प्रविष्ट करा:</string>
+    <string name="join_fpo_validation_error">कृपया ५० किलो ते १०,००० किलो दरम्यान वैध प्रमाण प्रविष्ट करा.</string>
+    <string name="join_fpo_est_payout">₹%1$s/%2$s किमतीनुसार अंदाजे रक्कम: ₹%3$d</string>
+    <string name="confirm_join_fpo_btn">निश्चित करा आणि सामील व्हा</string>
+    <string name="join_fpo_success_title">FPO लॉटमध्ये यशस्वीरीत्या सामील झालात!</string>
+    <string name="join_fpo_success_msg">तुमचे %1$d %2$s %3$s पीक %4$s मध्ये जोडले गेले आहे.</string>
+    <string name="no_fpo_lots_available">सध्या कोणताही सक्रिय FPO संकलन लॉट उपलब्ध नाही.</string>
 </resources>

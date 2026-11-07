@@ -1,14 +1,11 @@
 package com.krishisetu.app.ui.screens.farmer
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.krishisetu.app.localization.FarmerStrings
+import com.krishisetu.app.models.GovernmentScheme
 import com.krishisetu.app.ui.components.KrishiTopBar
 import com.krishisetu.app.ui.components.StatusBadge
 import com.krishisetu.app.ui.theme.*
@@ -30,12 +28,13 @@ fun GovernmentSchemesScreen(
     val strings = FarmerStrings.get(currentLang)
 
     val schemes by viewModel.schemes.collectAsState()
+    var selectedSchemeDialog by remember { mutableStateOf<GovernmentScheme?>(null) }
 
     Scaffold(
         topBar = {
             KrishiTopBar(
                 title = strings.schemesTitle,
-                subtitle = "Subsidies, Benefits & Insurance (MOCK DATA)",
+                subtitle = strings.schemesSubtitle,
                 onBackClick = onBack
             )
         },
@@ -59,7 +58,7 @@ fun GovernmentSchemesScreen(
                         Text("🏛️", fontSize = 24.sp)
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "Discover eligible central & Maharashtra state schemes for direct assistance.",
+                            text = strings.schemesIntroBanner,
                             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                             color = FarmerRoleGreen
                         )
@@ -67,7 +66,11 @@ fun GovernmentSchemesScreen(
                 }
             }
 
-            items(schemes) { scheme ->
+            items(schemes, key = { it.id }) { rawScheme ->
+                val scheme = strings.localizeScheme(rawScheme)
+                val description = strings.schemeDescription(scheme.id)
+                val portalUrl = strings.schemePortalUrl(scheme.id)
+
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
@@ -86,7 +89,17 @@ fun GovernmentSchemesScreen(
                                 color = TextPrimary,
                                 modifier = Modifier.weight(1f)
                             )
+                            Spacer(modifier = Modifier.width(8.dp))
                             StatusBadge(status = scheme.category)
+                        }
+
+                        if (description.isNotBlank()) {
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = description,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextSecondary
+                            )
                         }
 
                         Spacer(modifier = Modifier.height(10.dp))
@@ -114,7 +127,7 @@ fun GovernmentSchemesScreen(
 
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "How to Apply:",
+                            text = "${strings.howToApplyLabel}:",
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                             color = TextPrimary
                         )
@@ -123,13 +136,79 @@ fun GovernmentSchemesScreen(
                         HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = BorderColor)
 
                         Text(
-                            text = "Official Source: ${scheme.officialSource}",
+                            text = "${strings.officialSourceLabel}: ${scheme.officialSource}",
                             style = MaterialTheme.typography.labelSmall,
                             color = TextMuted
+                        )
+                        Text(
+                            text = "${strings.officialPortalLabel}: $portalUrl",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                            color = FarmerRoleGreen
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedButton(
+                            onClick = { selectedSchemeDialog = rawScheme },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text(
+                                text = strings.applyOrViewSchemeBtn,
+                                fontWeight = FontWeight.Bold,
+                                color = FarmerRoleGreen
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Disclaimer Card
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF8E1))
+                ) {
+                    Row(modifier = Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text("ℹ️", fontSize = 18.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = strings.schemesDisclaimerText,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TextSecondary
                         )
                     }
                 }
             }
         }
+    }
+
+    selectedSchemeDialog?.let { raw ->
+        val scheme = strings.localizeScheme(raw)
+        val portalUrl = strings.schemePortalUrl(scheme.id)
+        AlertDialog(
+            onDismissRequest = { selectedSchemeDialog = null },
+            title = {
+                Text(scheme.title, fontWeight = FontWeight.Bold)
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("${strings.benefitLabel}: ${scheme.benefit}", fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                    Text("${strings.eligibilityLabel}: ${scheme.eligibility}")
+                    Text("${strings.documentsLabel}: ${scheme.documentsRequired}")
+                    Text("${strings.howToApplyLabel}: ${scheme.howToApply}")
+                    Text("${strings.officialPortalLabel}: $portalUrl", fontWeight = FontWeight.Bold, color = BuyerRoleBlue)
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { selectedSchemeDialog = null },
+                    colors = ButtonDefaults.buttonColors(containerColor = FarmerRoleGreen)
+                ) {
+                    Text(strings.gotItBtn)
+                }
+            }
+        )
     }
 }

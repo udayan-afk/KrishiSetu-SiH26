@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.krishisetu.app.localization.LocaleHelper
 import com.krishisetu.app.localization.LocalizedApp
 import com.krishisetu.app.ui.navigation.AppNavHost
 import com.krishisetu.app.ui.theme.KrishiSetuTheme
@@ -20,10 +21,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            val savedLang = LocaleHelper.getSavedLanguage(applicationContext)
+            viewModel.setLanguage(savedLang)
+        }
         setContent {
             val selectedLanguage by viewModel.selectedLanguage.collectAsState()
             
-            LocalizedApp(language = selectedLanguage) {
+            LocalizedApp(
+                language = selectedLanguage,
+                onLanguageChange = { viewModel.setLanguage(it) }
+            ) {
                 KrishiSetuTheme {
                     Surface(
                         modifier = Modifier.fillMaxSize(),

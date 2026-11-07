@@ -13,7 +13,13 @@ class KrishiSetuViewModel(
     val currentRole: StateFlow<UserRole> = repository.currentRole
     val currentFarmer: StateFlow<FarmerUser> = repository.currentFarmer
     val lots: StateFlow<List<CropLot>> = repository.lots
+    val commodities: List<CommodityInfo> = repository.commodities
+    val marketYards: List<MarketYardInfo> = repository.marketYards
     val marketPrices: StateFlow<List<MarketPriceData>> = repository.marketPrices
+    val selectedCommodity: StateFlow<String> = repository.selectedCommodity
+    val selectedCategory: StateFlow<CommodityCategory> = repository.selectedCategory
+    val selectedMarketId: StateFlow<String> = repository.selectedMarketId
+    val comparisonQuantityKg: StateFlow<Double> = repository.comparisonQuantityKg
     val buyers: StateFlow<List<BuyerUser>> = repository.buyers
     val buyerRequirements: StateFlow<List<BuyerRequirement>> = repository.buyerRequirements
     val offers: StateFlow<List<DigitalOffer>> = repository.offers
@@ -211,5 +217,21 @@ class KrishiSetuViewModel(
 
     fun sendChatMessage(text: String) {
         repository.sendChatMessage(text)
+    }
+
+    fun selectCommodity(cropName: String) {
+        repository.setSelectedCommodity(cropName)
+    }
+
+    fun selectCategory(category: CommodityCategory) {
+        repository.setSelectedCategory(category)
+    }
+
+    fun selectMarket(marketId: String) {
+        repository.setSelectedMarketId(marketId)
+    }
+
+    fun updateComparisonQuantityKg(quantityKg: Double) {
+        repository.setComparisonQuantityKg(quantityKg)
     }
 }

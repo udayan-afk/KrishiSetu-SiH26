@@ -142,7 +142,7 @@ data class CropLot(
     val location: String,
     val expectedPricePerKg: Double,
     val status: String = "Available",
-    val farmerName: String = "Ramesh Patil"
+    val farmerName: String = "Vikram Jadhav"
 )
 
 data class BuyerRequirement(
@@ -171,6 +171,86 @@ data class DigitalOffer(
     val history: List<String> = emptyList()
 )
 
+enum class CommodityCategory(val displayName: String) {
+    ALL("All"),
+    VEGETABLES("Vegetables"),
+    FRUITS("Fruits"),
+    GRAINS_AND_PULSES("Grains and Pulses")
+}
+
+enum class MarketDataStatus(val labelEn: String) {
+    SAMPLE_DATA("SAMPLE DATA"),
+    REPORTED("REPORTED"),
+    LIVE("LIVE")
+}
+
+enum class MarketType(val labelEn: String) {
+    REPORTED_PRICE("Reported-Price Market"),
+    INTRADAY_UPDATED("Intraday-Updated Market"),
+    AUCTION_BIDDING("Auction / Bidding Market")
+}
+
+enum class AuctionStatus(val labelEn: String) {
+    NOT_STARTED("Not started"),
+    OPEN("Open"),
+    CLOSED("Closed")
+}
+
+data class PriceObservation(
+    val id: String,
+    val commodityId: String,
+    val commodityName: String,
+    val marketId: String,
+    val marketName: String,
+    val sessionKey: String, // "MORNING", "MIDDAY", "AFTERNOON", "DAILY_REPORT"
+    val pricePerKg: Double,
+    val reportedDate: String,
+    val reportedTime: String,
+    val sourceProvider: String = "KrishiSetu Demo Feed (Illustrative)",
+    val dataStatus: MarketDataStatus = MarketDataStatus.SAMPLE_DATA,
+    val freshnessLabel: String = "Sample Intraday Snapshot",
+    val minPricePerKg: Double? = null,
+    val maxPricePerKg: Double? = null,
+    val modalPricePerKg: Double? = null,
+    val changeRs: Double? = null,
+    val changePercent: Double? = null
+)
+
+data class AuctionSummary(
+    val id: String,
+    val commodityId: String,
+    val commodityName: String,
+    val marketId: String,
+    val marketName: String,
+    val status: AuctionStatus,
+    val startTime: String,
+    val closeTime: String,
+    val validBidsCount: Int,
+    val currentHighestBidPerKg: Double? = null,
+    val winningBidPerKg: Double? = null,
+    val bidTimestamp: String,
+    val unit: String = "₹/kg",
+    val sampleLabel: String = "SAMPLE AUCTION"
+)
+
+data class CommodityInfo(
+    val id: String,
+    val name: String,
+    val category: CommodityCategory,
+    val emoji: String,
+    val basePricePerKg: Double,
+    val unit: String = "₹/kg"
+)
+
+data class MarketYardInfo(
+    val id: String,
+    val name: String,
+    val district: String,
+    val distanceKmFromSatara: Int,
+    val priceBiasFactor: Double,
+    val marketType: MarketType = MarketType.INTRADAY_UPDATED
+)
+
 data class MarketPriceData(
     val id: String,
     val cropName: String,
@@ -182,8 +262,22 @@ data class MarketPriceData(
     val maxPricePerKg: Double,
     val distanceKm: Int,
     val transportCostEst: Double,
-    val lastUpdated: String = "Today, 08:30 AM",
-    val priceTrend7Days: List<Double> = listOf(21.0, 21.5, 22.0, 23.5, 24.0, 25.0, 26.0)
+    val lastUpdated: String = "Demo Snapshot · 03:00 PM",
+    val priceTrend7Days: List<Double> = listOf(21.0, 21.5, 22.0, 23.5, 24.0, 25.0, 26.0),
+    val category: CommodityCategory = CommodityCategory.VEGETABLES,
+    val commodityId: String = "CMD-01",
+    val marketId: String = "MKT-01",
+    val previousPricePerKg: Double = 21.0,
+    val trendDirection: String = "UP",
+    val sampleLoadKg: Int = 800,
+    val dataSourceLabel: String = "DEMO / SAMPLE DATA",
+    val unit: String = "₹/kg",
+    val marketType: MarketType = MarketType.INTRADAY_UPDATED,
+    val dataStatus: MarketDataStatus = MarketDataStatus.SAMPLE_DATA,
+    val freshnessLabel: String = "Sample Intraday Snapshot",
+    val isStale: Boolean = false,
+    val observations: List<PriceObservation> = emptyList(),
+    val auctionSummary: AuctionSummary? = null
 )
 
 data class TransportOption(

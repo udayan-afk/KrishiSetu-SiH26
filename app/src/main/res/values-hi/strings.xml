@@ -153,14 +153,14 @@
 
     <!-- Market Prices & Comparison -->
     <string name="market_prices_title">महाराष्ट्र बाज़ार भाव</string>
-    <string name="market_prices_subtitle">लाइव एपीएमसी और बाज़ार दरें</string>
+    <string name="market_prices_subtitle">लाइव एपीएमसी और मंडी भाव</string>
     <string name="highest_rate_label">उच्चतम दर</string>
     <string name="current_rate_label">वर्तमान दर</string>
     <string name="modal_price_label">मॉडल दर</string>
     <string name="max_rate_label">अधिकतम दर</string>
-    <string name="price_trend_7days">7-दिवसीय मूल्य रुझान (सतारा / पुणे)</string>
+    <string name="price_trend_7days">7-दिवसीय मूल्य रुझान (सातारा / पुणे)</string>
     <string name="compare_market_costs_btn">⚖️ बाज़ार लागतों की तुलना करें</string>
-    <string name="compare_market_sub">सतारा, कराड और पुणे के लिए परिवहन बनाम शुद्ध आय की गणना करें</string>
+    <string name="compare_market_sub">सातारा, कराड और पुणे के लिए परिवहन बनाम शुद्ध आय की गणना करें</string>
     <string name="market_comparison_title">मंडी लागत तुलना</string>
     <string name="net_realization_formula">कुल राजस्व - परिवहन लागत - कमीशन = आपकी जेब में शुद्ध राशि</string>
     <string name="best_value_badge">सर्वोत्तम मूल्य</string>
@@ -168,23 +168,23 @@
     <string name="est_net_label">अनुमानित शुद्ध राशि:</string>
 
     <!-- Best Place to Sell & Sell or Wait -->
-    <string name="best_place_title">बेचने की सबसे अच्छी जगह</string>
-    <string name="top_recommendation_badge">शीर्ष सिफारिश</string>
+    <string name="best_place_title">बेचने की सबसे अच्छी मंडी</string>
+    <string name="top_recommendation_badge">सर्वोच्च सिफारिश</string>
     <string name="gross_amount_label">कुल राशि</string>
     <string name="transport_cost_label">परिवहन लागत (-)</string>
     <string name="commission_fee_label">मंडी कमीशन (-)</string>
     <string name="net_realization_title">अनुमानित शुद्ध आय</string>
     <string name="sell_now_or_wait_title">अभी बेचें या प्रतीक्षा करें</string>
-    <string name="sell_now_recommendation">सिफारिश: अभी बेचें (SELL NOW)</string>
+    <string name="sell_now_recommendation">सिफारिश: अभी बेचें</string>
     <string name="market_indicators_title">बाज़ार संकेतक विश्लेषण</string>
     <string name="proceed_to_sell_btn">🌾 अभी लॉट बेचने के लिए आगे बढ़ें</string>
 
     <!-- Buyer Marketplace & Offers -->
-    <string name="buyer_marketplace_title">खरीदार बाज़ार</string>
+    <string name="buyer_marketplace_title">खरीदार मंडी</string>
     <string name="search_buyers_placeholder">खरीदार या शहर के नाम से खोजें...</string>
     <string name="make_offer_btn">ऑफर दें</string>
     <string name="digital_offer_title">डिजिटल खरीदार ऑफर</string>
-    <string name="offered_price_label">प्रस्तावित मूल्य</string>
+    <string name="offered_price_label">प्रस्तावित कीमत</string>
     <string name="negotiation_history_header">बातचीत का इतिहास</string>
     <string name="accept_offer_btn">✅ ऑफर स्वीकार करें</string>
     <string name="counter_offer_btn">💬 काउंटर ऑफर दें</string>
@@ -196,7 +196,7 @@
     <string name="logistics_title">लॉजिस्टिक्स और परिवहन</string>
     <string name="available_vehicles_header">उपलब्ध सत्यापित ड्राइवर और वाहन</string>
     <string name="confirm_transport_btn">🚚 चयनित परिवहन की पुष्टि करें</string>
-    <string name="fpo_aggregation_title">FPO सामूहिक पूल</string>
+    <string name="fpo_aggregation_title">किसान उत्पादक संगठन (FPO) सामूहिक व्यापार</string>
     <string name="join_fpo_btn">🤝 FPO लॉट में शामिल हों</string>
 
     <!-- Profit Calculator -->
@@ -229,8 +229,8 @@
     <string name="ask_ai_placeholder">मराठी, हिंदी या अंग्रेजी में पूछें...</string>
     <string name="map_title">कृषिसेतु नक्शा</string>
     <string name="profile_title">किसान प्रोफ़ाइल</string>
-    <string name="select_language_setting">ऐप की भाषा (Language)</string>
-    <string name="logout_btn">🔒 लॉग आउट करें (Logout)</string>
+    <string name="select_language_setting">ऐप की भाषा</string>
+    <string name="logout_btn">🔒 लॉग आउट करें</string>
 
     <!-- General -->
     <string name="verified_farmer">सत्यापित किसान</string>
@@ -257,11 +257,11 @@
     <string name="ekyc_verified">आपके दस्तावेज़ सत्यापित हैं ✓</string>
 
     <!-- Document Verification Section -->
-    <string name="doc_verification_header">दस्तावेज़ सत्यापन (DOCUMENT VERIFICATION)</string>
-    <string name="aadhaar_card_label">आधार कार्ड (Aadhaar Card)</string>
-    <string name="seven_twelve_label">7/12 खसरा/खतौनी (7/12 Extract)</string>
-    <string name="gat_number_label">गट / खाता संख्या (GAT Number)</string>
-    <string name="bank_details_label">बैंक विवरण (Bank Details)</string>
+    <string name="doc_verification_header">दस्तावेज़ सत्यापन</string>
+    <string name="aadhaar_card_label">आधार कार्ड</string>
+    <string name="seven_twelve_label">7/12 खसरा/खतौनी</string>
+    <string name="gat_number_label">गट / खाता संख्या</string>
+    <string name="bank_details_label">बैंक विवरण</string>
     <string name="upload_btn">अपलोड करें</string>
     <string name="submit_docs_btn">सत्यापन के लिए दस्तावेज़ जमा करें</string>
     <string name="not_submitted_status">जमा नहीं किया</string>
@@ -272,9 +272,191 @@
     <!-- Submission Popup -->
     <string name="docs_submitted_title">दस्तावेज़ सफलतापूर्वक जमा किए गए</string>
     <string name="docs_submitted_msg">आपके दस्तावेज़ों की समीक्षा की जाएगी और सबमिशन के 24 घंटे के भीतर सत्यापित किया जाएगा।</string>
-    <string name="got_it_btn">समझ गए (Got it)</string>
+    <string name="got_it_btn">समझ गए</string>
 
     <!-- Scheme Banner -->
     <string name="learn_more_btn">और जानें</string>
     <string name="govt_schemes_banner_title">सरकारी योजनाएं और सहायता</string>
+
+    <!-- Market Prices, Intraday Timeline, Auction & Comparison Expansion -->
+    <string name="demo_data_badge">नमूना डेटा</string>
+    <string name="demo_data_subtitle">प्रतियोगिता डेमो के लिए 35 फसलें × 30 महाराष्ट्र मंडियों के उदाहरण भाव</string>
+    <string name="search_commodity_or_market_hint">35 फसलें या 30 महाराष्ट्र मंडियां खोजें…</string>
+    <string name="category_all">सभी</string>
+    <string name="category_vegetables">सब्जियां</string>
+    <string name="category_fruits">फल</string>
+    <string name="category_grains_pulses">अनाज और दालें</string>
+    <string name="lowest_rate_label">न्यूनतम दर</string>
+    <string name="avg_modal_label">औसत मोडल</string>
+    <string name="markets_count_label">मंडियां</string>
+    <string name="intraday_timeline_title">दिनभर की भाव समयरेखा</string>
+    <string name="intraday_timeline_subtitle">समय के साथ दर्ज किए गए अलग-अलग मंडी भाव</string>
+    <string name="select_market_timeline_label">मंडी चुनें</string>
+    <string name="session_morning">सुबह का सत्र (08:00 AM)</string>
+    <string name="session_midday">दोपहर का सत्र (12:00 PM)</string>
+    <string name="session_afternoon">ताज़ा उपलब्ध भाव (03:00 PM)</string>
+    <string name="session_daily_report">दैनिक मंडी बुलेटिन (11:30 AM)</string>
+    <string name="single_observation_notice">इस मंडी के लिए आज केवल एक रिपोर्ट किया गया भाव उपलब्ध है। सुबह/दोपहर के काल्पनिक भाव नहीं जोड़े गए हैं।</string>
+    <string name="stale_data_warning">विलंबित बुलेटिन: इस मंडी का डेटा 4 घंटे से अधिक पुराना है।</string>
+    <string name="opening_observation_label">शुरुआती भाव</string>
+    <string name="change_vs_prev_label">पिछले भाव से बदलाव</string>
+    <string name="market_type_reported">दैनिक रिपोर्ट मंडी</string>
+    <string name="market_type_intraday">दिनभर अपडेटेड मंडी</string>
+    <string name="market_type_auction">नीलामी / बोली मंडी</string>
+    <string name="data_status_sample">नमूना डेटा</string>
+    <string name="data_status_reported">रिपोर्टेड भाव</string>
+    <string name="data_status_live">लाइव</string>
+    <string name="auction_summary_title">नमूना नीलामी सारांश</string>
+    <string name="sample_auction_badge">नमूना नीलामी</string>
+    <string name="auction_status_label">नीलामी की स्थिति</string>
+    <string name="auction_status_not_started">शुरू नहीं हुई</string>
+    <string name="auction_status_open">चालू है</string>
+    <string name="auction_status_closed">बंद हो गई</string>
+    <string name="auction_window_label">नीलामी का समय</string>
+    <string name="valid_bids_label">वैध नमूना बोलियां</string>
+    <string name="current_highest_bid_label">वर्तमान सर्वोच्च वैध बोली</string>
+    <string name="winning_bid_label">विजेता बोली (अंतिम)</string>
+    <string name="no_bids_yet_label">नीलामी अभी शुरू नहीं हुई है</string>
+    <string name="auction_disclaimer_text">यह केवल डेमो के लिए नमूना नीलामी डेटा है। यह मोडल मंडी भाव से अलग है और लाइव व्यापारी बोली नहीं है।</string>
+    <string name="commodity_load_config_title">फसल और मात्रा चयन</string>
+    <string name="selected_commodity_label">चयनित फसल</string>
+    <string name="quick_select_commodity_label">त्वरित फसल चयन</string>
+    <string name="custom_quantity_input_label">माल की मात्रा (किलो)</string>
+    <string name="preset_quantity_label">त्वरित मात्रा विकल्प</string>
+    <string name="sort_markets_by_label">30 महाराष्ट्र मंडियों को क्रमबद्ध करें</string>
+    <string name="sort_best_net">सर्वोत्तम शुद्ध आय</string>
+    <string name="sort_highest_price">उच्चतम कीमत / किलो</string>
+    <string name="sort_nearest_distance">सबसे कम दूरी</string>
+    <string name="sort_lowest_transport">सबसे कम परिवहन लागत</string>
+    <string name="best_market_for_load_badge">सर्वोत्तम मंडी —</string>
+    <string name="gross_revenue_short">कुल राशि</string>
+    <string name="transport_cost_short">परिवहन खर्च</string>
+    <string name="net_realization_short">अनुमानित शुद्ध आय</string>
+    <string name="gain_vs_lowest_label">सबसे कम भाव वाली मंडी से अधिक लाभ</string>
+    <string name="no_matching_markets_msg">आपकी खोज से मेल खाने वाली कोई महाराष्ट्र मंडी नहीं मिली।</string>
+    <string name="tap_card_for_timeline_hint">भाव समयरेखा और नीलामी स्थिति देखने के लिए नीचे किसी भी मंडी कार्ड पर टैप करें</string>
+
+    <!-- Targeted Localization Completion: Units & Common -->
+    <string name="kg_unit">किलो</string>
+    <string name="km_unit">किमी</string>
+    <string name="crops_count_label">फसलें</string>
+    <string name="yes_label">हाँ</string>
+    <string name="no_label">नहीं</string>
+    <string name="clear_search_btn">खोज साफ़ करें</string>
+    <string name="next_step_btn">अगला चरण</string>
+
+    <!-- 1. Crop Lot — Section 1: Crop Selection & Wizard -->
+    <string name="choose_your_crop_subtitle">महाराष्ट्र की 35 प्रमुख फसलों में से अपनी फसल चुनें</string>
+    <string name="crop_category_label">फसल की श्रेणी</string>
+    <string name="selected_crop_banner_label">चयनित फसल</string>
+    <string name="search_crop_placeholder">फसल का नाम खोजें…</string>
+    <string name="crop_selection_instruction">फसल की श्रेणी चुनें या नीचे खोजें, फिर किसी भी फसल कार्ड पर टैप करके उसे चुनें।</string>
+    <string name="no_crops_found_msg">आपकी खोज से मेल खाने वाली कोई फसल नहीं मिली।</string>
+    <string name="crop_required_error">कृपया आगे बढ़ने के लिए एक फसल चुनें।</string>
+    <string name="quantity_required_error">कृपया 0 किलो से अधिक मान्य मात्रा दर्ज करें।</string>
+    <string name="price_required_error">कृपया प्रति किलो मान्य अपेक्षित कीमत दर्ज करें।</string>
+    <string name="quality_required_error">कृपया एक गुणवत्ता श्रेणी चुनें।</string>
+    <string name="quantity_placeholder">उदा. 800</string>
+    <string name="price_placeholder">उदा. 26</string>
+    <string name="photos_selected_mock">3 नमूना तस्वीरें चुनी गईं</string>
+    <string name="tap_to_capture_photos">फसल की तस्वीरें लेने या बदलने के लिए यहाँ टैप करें</string>
+
+    <!-- 2. Best Marketplace & Sell Now or Wait -->
+    <string name="best_place_subtitle">मंडी लिंकेज सिफारिश · %1$s</string>
+    <string name="best_net_market_identified_title">सर्वोत्तम शुद्ध आय वाली मंडी (%1$s)</string>
+    <string name="best_net_market_identified_sub">%2$d %3$s माल के लिए महाराष्ट्र की %1$d मंडियों की तुलना (नमूना डेटा)।</string>
+    <string name="verified_market_badge">सत्यापित मंडी</string>
+    <string name="best_place_crop_qty_district_line">फसल: %1$s · मात्रा: %2$d %3$s · जिला: %4$s (%5$d %6$s)</string>
+    <string name="estimated_transport_cost_label">अनुमानित परिवहन लागत (-)</string>
+    <string name="data_source_label">डेटा स्रोत</string>
+    <string name="gain_vs_local_mandi">+₹%1$d\nस्थानीय मंडी से अधिक</string>
+    <string name="comparison_with_local_title">%1$s के साथ तुलना</string>
+    <string name="local_market_metrics_line">स्थानीय कीमत: ₹%1$s/%2$s · परिवहन: ₹%3$d · स्थानीय शुद्ध आय: ₹%4$d</string>
+    <string name="higher_net_in_best_market_msg">%1$s में बेचने पर परिवहन खर्च के बाद अनुमानित +₹%2$d अधिक शुद्ध लाभ मिलता है।</string>
+    <string name="local_market_is_best_msg">इस माल के लिए वर्तमान में %1$s में सबसे अधिक शुद्ध आय मिल रही है।</string>
+    <string name="best_place_warning_note">सूचना: शुद्ध आय की गणना कुल राजस्व में से अनुमानित परिवहन लागत घटाकर की गई है (स्थानीय मंडी शुल्क से पहले)।</string>
+    <string name="no_markets_available_for_crop">इस फसल के लिए कोई मंडी रिकॉर्ड उपलब्ध नहीं है।</string>
+    <string name="sell_or_wait_subtitle">मंडी रुझान तुलना · %1$s</string>
+    <string name="sell_now_heuristic_badge">सिफारिश: अभी बेचें</string>
+    <string name="wait_monitor_heuristic_badge">सिफारिश: तुलना करें / नज़र रखें</string>
+    <string name="trend_summary_heading">%1$s — मंडी भाव रुझान सारांश</string>
+    <string name="trend_summary_description">%1$s के लिए 30 महाराष्ट्र मंडियों में सर्वोच्च नमूना कीमत %3$s में ₹%2$s/किलो है (राज्य औसत: ₹%4$s/किलो)।</string>
+    <string name="highest_market_rate_row">सर्वोच्च मंडी कीमत</string>
+    <string name="lowest_market_rate_row">न्यूनतम मंडी कीमत</string>
+    <string name="thirty_market_avg_rate_row">30-मंडी औसत कीमत</string>
+    <string name="seven_day_sample_trend_row">7-दिवसीय कीमत रुझान (शीर्ष मंडी)</string>
+    <string name="storage_perishability_row">भंडारण / टिकाऊपन सूचना</string>
+    <string name="shelf_life_vegetables">शीघ्र खराब होने वाली फसल (ताज़ी सब्ज़ी)</string>
+    <string name="shelf_life_fruits">मध्यम से उच्च नाशवान फसल (ताज़ा फल)</string>
+    <string name="shelf_life_grains">कम नाशवान फसल (सूखा भंडारण संभव)</string>
+    <string name="trend_disclaimer_notice">सूचना: ये संकेतक केवल प्रदर्शन के लिए नमूना रुझान हैं और आधिकारिक एपीएमसी पूर्वानुमान नहीं हैं।</string>
+
+    <!-- 3. Find Buyer & Digital Offers -->
+    <string name="buyer_marketplace_subtitle">सत्यापित प्रोसेसर, व्यापारी और FPO</string>
+    <string name="filter_by_crop_label">फसल के अनुसार खरीदार फ़िल्टर करें</string>
+    <string name="buyer_requirement_line">आवश्यक फसल: %1$s · मात्रा: %2$d %3$s</string>
+    <string name="on_time_payment_history_format">%1$d%% समय पर भुगतान का रिकॉर्ड</string>
+    <string name="buyer_contact_label">संपर्क व्यक्ति: %1$s</string>
+    <string name="contact_buyer_btn">📞 खरीदार से संपर्क करें</string>
+    <string name="contact_buyer_dialog_title">खरीदार संपर्क विवरण</string>
+    <string name="buyer_company_label">कंपनी / संस्था</string>
+    <string name="buyer_type_label">खरीदार का प्रकार</string>
+    <string name="buyer_location_label">स्थान</string>
+    <string name="buyer_phone_label">फ़ोन नंबर</string>
+    <string name="no_buyers_found_title">कोई खरीदार नहीं मिला</string>
+    <string name="no_buyers_found_sub">आपकी वर्तमान खोज या चयनित फसल के लिए कोई सत्यापित खरीदार नहीं मिला।</string>
+    <string name="offer_id_label">ऑफर आईडी</string>
+    <string name="crop_lot_label">फसल लॉट</string>
+    <string name="deal_confirmed_proceed_msg">%1$s के साथ सौदा पक्का हो गया है। परिवहन चुनने के लिए आगे बढ़ें।</string>
+
+    <!-- 4. Government Schemes -->
+    <string name="schemes_subtitle">कृषि अनुदान, वित्तीय सहायता और फसल बीमा</string>
+    <string name="schemes_intro_banner">किसानों की सीधी सहायता के लिए केंद्र और महाराष्ट्र राज्य की सरकारी योजनाओं की जानकारी प्राप्त करें।</string>
+    <string name="how_to_apply_label">आवेदन निर्देश</string>
+    <string name="official_source_label">आधिकारिक स्रोत</string>
+    <string name="official_source_value">कृषि एवं किसान कल्याण मंत्रालय</string>
+    <string name="official_portal_label">आधिकारिक पोर्टल</string>
+    <string name="apply_or_view_scheme_btn">📋 आवेदन विवरण देखें</string>
+    <string name="schemes_disclaimer_text">अस्वीकरण: योजना की जानकारी किसानों के मार्गदर्शन के लिए दी गई है। कृपया नजदीकी CSC केंद्र या आधिकारिक पोर्टल पर अंतिम तिथि की पुष्टि करें।</string>
+    <string name="scheme_1_title">पीएम-किसान सम्मान निधि (PM-KISAN)</string>
+    <string name="scheme_1_category">प्रत्यक्ष आय सहायता</string>
+    <string name="scheme_1_desc">भूमिधारक किसान परिवारों के लिए केंद्र सरकार की प्रत्यक्ष आय सहायता योजना।</string>
+    <string name="scheme_1_benefit">3 समान किस्तों में ₹6,000 प्रति वर्ष</string>
+    <string name="scheme_1_eligibility">2 हेक्टेयर तक कृषि योग्य भूमि वाले छोटे और सीमांत किसान।</string>
+    <string name="scheme_1_docs">आधार कार्ड, भूमि स्वामित्व दस्तावेज़ (7/12 उतारा), बैंक पासबुक</string>
+    <string name="scheme_1_apply">PM-KISAN पोर्टल (pmkisan.gov.in) पर ऑनलाइन आवेदन करें या नजदीकी कॉमन सर्विस सेंटर (CSC) पर जाएं।</string>
+    <string name="scheme_2_title">प्रधानमंत्री फसल बीमा योजना (PMFBY)</string>
+    <string name="scheme_2_category">फसल बीमा</string>
+    <string name="scheme_2_desc">प्राकृतिक आपदाओं, बेमौसम बारिश और सूखे से फसल के नुकसान के विरुद्ध व्यापक बीमा सुरक्षा।</string>
+    <string name="scheme_2_benefit">प्राकृतिक आपदाओं से फसल खराब होने पर वित्तीय मुआवज़ा।</string>
+    <string name="scheme_2_eligibility">अधिसूचित क्षेत्रों में अधिसूचित फसलें उगाने वाले सभी किसान।</string>
+    <string name="scheme_2_docs">बुवाई प्रमाण पत्र, आधार कार्ड, 7/12 उतारा, बैंक खाता विवरण</string>
+    <string name="scheme_2_apply">अंतिम तिथि से पहले बैंक शाखा, CSC केंद्र या ऑनलाइन PMFBY पोर्टल (pmfby.gov.in) के माध्यम से पंजीकरण करें।</string>
+    <string name="scheme_3_title">ई-नाम (e-NAM) राष्ट्रीय कृषि बाज़ार योजना</string>
+    <string name="scheme_3_category">मंडी संपर्क</string>
+    <string name="scheme_3_desc">पारदर्शी मूल्य निर्धारण के लिए एपीएमसी मंडियों को जोड़ने वाला अखिल भारतीय इलेक्ट्रॉनिक व्यापार पोर्टल।</string>
+    <string name="scheme_3_benefit">बिना बिचौलिए के राष्ट्रीय मंडियों से जोड़ने वाला सीधा ऑनलाइन व्यापार मंच।</string>
+    <string name="scheme_3_eligibility">महाराष्ट्र की ई-नाम मंडियों में पंजीकृत किसान।</string>
+    <string name="scheme_3_docs">एपीएमसी पंजीकरण, आधार कार्ड, बैंक पासबुक</string>
+    <string name="scheme_3_apply">स्थानीय एपीएमसी कार्यालय या ऑनलाइन ई-नाम पोर्टल (enam.gov.in) पर पंजीकरण करें।</string>
+
+    <!-- 5. FPO Trading -->
+    <string name="fpo_aggregation_subtitle">थोक कीमत के लाभ के लिए अन्य किसानों के साथ फसल मात्रा मिलाएं</string>
+    <string name="why_join_fpo_title">किसान उत्पादक संगठन (FPO) सामूहिक लॉट में क्यों जुड़ें?</string>
+    <string name="why_join_fpo_sub">बड़े प्रोसेसर थोक आपूर्ति लॉट पर प्रति किलो ₹2–₹3 अधिक कीमत देते हैं और परिवहन लागत भी कम होती है।</string>
+    <string name="fpo_status_open">संकलन चालू है</string>
+    <string name="fpo_status_ready">लक्ष्य पूरा · बिक्री के लिए तैयार</string>
+    <string name="fpo_crop_target_line">फसल: %1$s · शामिल किसान: %2$d</string>
+    <string name="fpo_total_quantity_line">संकलित मात्रा: %1$d / %2$d %3$s</string>
+    <string name="fpo_remaining_qty_line">शेष आवश्यक मात्रा: %1$d %2$s</string>
+    <string name="fpo_offered_price_label">थोक ऑफर कीमत</string>
+    <string name="fpo_available_offers_label">उपलब्ध ऑफर: सत्यापित प्रोसेसर थोक अनुबंध</string>
+    <string name="join_fpo_dialog_title">FPO सामूहिक लॉट में शामिल हों</string>
+    <string name="join_fpo_qty_prompt">%1$s में जोड़ने के लिए अपनी फसल की मात्रा (किलो में) दर्ज करें:</string>
+    <string name="join_fpo_validation_error">कृपया 50 किलो से 10,000 किलो के बीच मान्य मात्रा दर्ज करें।</string>
+    <string name="join_fpo_est_payout">₹%1$s/%2$s की दर से अनुमानित आय: ₹%3$d</string>
+    <string name="confirm_join_fpo_btn">पुष्टि करें और FPO में जुड़ें</string>
+    <string name="join_fpo_success_title">FPO लॉट में सफलतापूर्वक शामिल हो गए!</string>
+    <string name="join_fpo_success_msg">आपकी %1$d %2$s %3$s फसल %4$s में जोड़ दी गई है।</string>
+    <string name="no_fpo_lots_available">वर्तमान में कोई सक्रिय FPO सामूहिक लॉट उपलब्ध नहीं है।</string>
 </resources>

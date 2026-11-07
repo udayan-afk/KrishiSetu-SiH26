@@ -20,6 +20,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.krishisetu.app.localization.FarmerStrings
+import com.krishisetu.app.localization.LocalAppLanguage
+import com.krishisetu.app.localization.LocalOnLanguageChange
+import com.krishisetu.app.models.AppLanguage
 import com.krishisetu.app.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +34,10 @@ fun KrishiTopBar(
     onBackClick: (() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {}
 ) {
+    val strings = FarmerStrings.get()
+    val currentLanguage = LocalAppLanguage.current
+    val onLanguageChange = LocalOnLanguageChange.current
+
     TopAppBar(
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -38,20 +46,21 @@ fun KrishiTopBar(
                 Column {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "KrishiSetu",
+                            text = strings.appName,
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.ExtraBold,
                                 color = PrimaryGreen
                             )
                         )
-                        if (title.isNotEmpty() && title != "KrishiSetu") {
+                        if (title.isNotEmpty() && title != "KrishiSetu" && title != strings.appName) {
                             Text(
                                 text = " • $title",
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 15.sp
                                 ),
-                                color = TextPrimary
+                                color = TextPrimary,
+                                maxLines = 1
                             )
                         }
                     }
@@ -59,7 +68,8 @@ fun KrishiTopBar(
                         Text(
                             text = it,
                             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 11.sp),
-                            color = TextSecondary
+                            color = TextSecondary,
+                            maxLines = 1
                         )
                     }
                 }
@@ -76,7 +86,46 @@ fun KrishiTopBar(
                 }
             }
         },
-        actions = actions,
+        actions = {
+            actions()
+            if (onLanguageChange != null) {
+                Row(
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(Color(0xFFE8F5E9))
+                        .border(1.dp, PrimaryGreen.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                        .padding(horizontal = 3.dp, vertical = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val options = listOf(
+                        AppLanguage.MARATHI to "मरा",
+                        AppLanguage.HINDI to "हिं",
+                        AppLanguage.ENGLISH to "EN"
+                    )
+                    options.forEach { (lang, shortLabel) ->
+                        val isSelected = currentLanguage == lang
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(if (isSelected) PrimaryGreen else Color.Transparent)
+                                .clickable { onLanguageChange(lang) }
+                                .padding(horizontal = 6.dp, vertical = 3.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = shortLabel,
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 10.sp
+                                ),
+                                color = if (isSelected) Color.White else PrimaryGreen
+                            )
+                        }
+                    }
+                }
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = BackgroundWarm
         )
@@ -173,11 +222,15 @@ fun StatusBadge(
     modifier: Modifier = Modifier
 ) {
     val (bgColor, textColor) = when (status) {
-        "Available", "Accepted", "Verified", "Payment Received", "Resolved", "SELL NOW" ->
+        "Available", "उपलब्ध", "Accepted", "स्वीकारले", "स्वीकृत", "Verified", "सत्यापित",
+        "Payment Received", "पेमेंट प्राप्त झाले", "भुगतान प्राप्त", "Resolved", "SELL NOW",
+        "BEST VALUE", "सर्वोत्तम मूल्य", "सर्वोत्तम", "BEST NET REALIZATION" ->
             Pair(Color(0xFFE8F5E9), StatusSuccess)
-        "Pending", "Under Offer", "Under Review", "CONSIDER WAITING", "Pickup Scheduled" ->
+        "Pending", "प्रलंबित", "लंबित", "Under Offer", "ऑफर सुरू", "ऑफर जारी",
+        "Under Review", "CONSIDER WAITING", "Pickup Scheduled", "पिकअप निर्धारित" ->
             Pair(Color(0xFFFFF3E0), StatusWarning)
-        "Rejected", "Sold" ->
+        "Rejected", "नाकारले", "अस्वीकृत", "Sold", "विकले", "बिक गया",
+        "LOWEST PRICE/KG", "किमान दर", "न्यूनतम दर", "Lowest" ->
             Pair(Color(0xFFFFEBEE), StatusError)
         else ->
             Pair(Color(0xFFE3F2FD), StatusInfo)
@@ -202,7 +255,7 @@ fun StatusBadge(
 @Composable
 fun VerifiedBadge(
     modifier: Modifier = Modifier,
-    text: String = "Verified Buyer"
+    text: String = FarmerStrings.get().verifiedBuyer
 ) {
     Row(
         modifier = modifier

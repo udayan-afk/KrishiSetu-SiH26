@@ -41,6 +41,23 @@ fun RoleLoginScreen(
     var otpOrPassword by remember { mutableStateOf("123456") }
     var isOtpSent by remember { mutableStateOf(false) }
 
+    val cleanedMobileOrEmail = mobileOrEmail.trim()
+    val farmerDigits = cleanedMobileOrEmail.filter { it.isDigit() }
+    val isMobileOrEmailValid = if (role == UserRole.FARMER) {
+        cleanedMobileOrEmail.isNotEmpty() && farmerDigits.length >= 10
+    } else {
+        cleanedMobileOrEmail.isNotEmpty()
+    }
+    val cleanedOtp = otpOrPassword.trim()
+    val isOtpValid = cleanedOtp.length == 6 && cleanedOtp.all { it.isDigit() }
+    val isActionEnabled = if (role == UserRole.FARMER && !isOtpSent) {
+        isMobileOrEmailValid
+    } else if (isOtpSent) {
+        isMobileOrEmailValid && isOtpValid
+    } else {
+        isMobileOrEmailValid
+    }
+
     val roleTitle = when (role) {
         UserRole.FARMER -> strings.farmerLoginTitle
         UserRole.BUYER -> stringResource(R.string.buyer_role_title)
@@ -122,6 +139,7 @@ fun RoleLoginScreen(
                     onValueChange = { mobileOrEmail = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
+                    isError = !isMobileOrEmailValid,
                     leadingIcon = {
                         if (role == UserRole.FARMER) {
                             Text(
@@ -141,13 +159,21 @@ fun RoleLoginScreen(
                         unfocusedBorderColor = BorderColor
                     )
                 )
+                if (!isMobileOrEmailValid) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = if (role == UserRole.FARMER) "Please enter a valid 10-digit mobile number" else "Mobile number or email is required",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
 
             if (isOtpSent) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = "Enter 6-Digit OTP",
+                        text = "Enter 6-Digit Demo OTP",
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 14.sp),
                         color = TextPrimary
                     )
@@ -157,6 +183,7 @@ fun RoleLoginScreen(
                         onValueChange = { otpOrPassword = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
+                        isError = !isOtpValid,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = CardSurface,
@@ -165,6 +192,14 @@ fun RoleLoginScreen(
                             unfocusedBorderColor = BorderColor
                         )
                     )
+                    if (!isOtpValid) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Please enter a valid 6-digit numeric OTP for demo verification",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
             }
 
@@ -174,10 +209,13 @@ fun RoleLoginScreen(
             PrimaryKrishiButton(
                 text = if (!isOtpSent && role == UserRole.FARMER) strings.sendOtpBtn else strings.verifyLoginBtn,
                 containerColor = roleThemeColor,
+                enabled = isActionEnabled,
                 onClick = {
                     if (role == UserRole.FARMER && !isOtpSent) {
-                        isOtpSent = true
-                    } else {
+                        if (isMobileOrEmailValid) {
+                            isOtpSent = true
+                        }
+                    } else if (isActionEnabled) {
                         onLoginSuccess()
                     }
                 }
@@ -298,7 +336,7 @@ fun FarmerRegisterScreen(
     val currentLang by viewModel.selectedLanguage.collectAsState()
     val strings = FarmerStrings.get(currentLang)
 
-    var fullName by remember { mutableStateOf("Ramesh Patil") }
+    var fullName by remember { mutableStateOf("Vikram Jadhav") }
     var mobileNumber by remember { mutableStateOf("9876543210") }
     var selectedState by remember { mutableStateOf("Maharashtra") }
     var selectedDistrict by remember { mutableStateOf("Satara") }
@@ -383,7 +421,7 @@ fun FarmerRegisterScreen(
             OutlinedTextField(
                 value = fullName,
                 onValueChange = { fullName = it },
-                placeholder = { Text("e.g. Ramesh Patil") },
+                placeholder = { Text("e.g. Vikram Jadhav") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(

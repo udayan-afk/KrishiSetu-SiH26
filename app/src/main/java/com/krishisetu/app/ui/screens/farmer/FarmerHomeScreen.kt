@@ -246,7 +246,7 @@ fun FarmerHomeScreen(
                         Column {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    text = "KrishiSetu",
+                                    text = strings.appName,
                                     style = MaterialTheme.typography.labelMedium.copy(
                                         color = AccentGold,
                                         fontWeight = FontWeight.Bold,
@@ -255,7 +255,7 @@ fun FarmerHomeScreen(
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "•  शेतकऱ्यापासून बाजारपेठेपर्यंत",
+                                    text = "•  ${strings.appTagline}",
                                     style = MaterialTheme.typography.labelSmall.copy(
                                         color = Color.White.copy(alpha = 0.85f),
                                         fontSize = 10.sp
@@ -263,7 +263,7 @@ fun FarmerHomeScreen(
                                 )
                             }
                             Text(
-                                text = "Namaskar, ${farmer.name} 🙏",
+                                text = "${strings.greetingPrefix}, ${farmer.name} 🙏",
                                 style = MaterialTheme.typography.titleLarge.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -280,7 +280,7 @@ fun FarmerHomeScreen(
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = "${farmer.village}, ${farmer.district} (${farmer.state.take(2).uppercase()})",
+                                    text = "${farmer.village}, ${strings.districtName(farmer.district)}",
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         color = Color.White.copy(alpha = 0.9f),
                                         fontSize = 12.sp
@@ -678,11 +678,11 @@ fun FarmerHomeScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "${lot.cropName} (${lot.quantityKg.toInt()} kg)",
+                            text = "${strings.commodityName(lot.cropName)} (${lot.quantityKg.toInt()} ${strings.kgUnit})",
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                             color = TextPrimary
                         )
-                        StatusBadge(status = lot.status)
+                        StatusBadge(status = strings.translateStatus(lot.status))
                     }
 
                     Spacer(modifier = Modifier.height(6.dp))
@@ -691,13 +691,13 @@ fun FarmerHomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = "Lot ID: ${lot.id}", style = MaterialTheme.typography.bodyMedium, color = TextMuted)
+                        Text(text = "${strings.lotIdLabel}: ${lot.id}", style = MaterialTheme.typography.bodyMedium, color = TextMuted)
                         val gradeText = when (currentLang) {
                             AppLanguage.MARATHI -> lot.qualityGrade.labelMr
                             AppLanguage.HINDI -> lot.qualityGrade.labelHi
                             AppLanguage.ENGLISH -> lot.qualityGrade.labelEn
                         }
-                        Text(text = "Grade: $gradeText", style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
+                        Text(text = "${strings.qualityLabel}: $gradeText", style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -708,7 +708,7 @@ fun FarmerHomeScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "${strings.targetPriceLabel}: ₹${lot.expectedPricePerKg.toInt()}/kg",
+                            text = "${strings.targetPriceLabel}: ₹${lot.expectedPricePerKg.toInt()}/${strings.kgUnit}",
                             style = MaterialTheme.typography.titleMedium.copy(color = FarmerRoleGreen, fontWeight = FontWeight.Bold)
                         )
                         Button(
@@ -747,22 +747,22 @@ fun FarmerHomeScreen(
                 val schemeSlides = listOf(
                     SchemeSlideData(
                         tag = "PM-KISAN",
-                        title = "Income Support Scheme",
-                        description = "₹6,000 annual direct income support in 3 installments for eligible farmers.",
+                        title = strings.scheme1Title,
+                        description = strings.scheme1Desc,
                         icon = "🏛️",
                         bgColor = Color(0xFFE8F5E9)
                     ),
                     SchemeSlideData(
                         tag = "PMFBY",
-                        title = "Crop Insurance Scheme",
-                        description = "Financial assistance against crop loss due to natural calamities & rainfall failure.",
+                        title = strings.scheme2Title,
+                        description = strings.scheme2Desc,
                         icon = "🌾",
                         bgColor = Color(0xFFFFF3E0)
                     ),
                     SchemeSlideData(
                         tag = "e-NAM",
-                        title = "Digital Agricultural Market",
-                        description = "Direct online transparent trading platform connecting to 1,000+ national mandis.",
+                        title = strings.scheme3Title,
+                        description = strings.scheme3Desc,
                         icon = "📲",
                         bgColor = Color(0xFFE3F2FD)
                     )

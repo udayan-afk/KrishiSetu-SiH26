@@ -4,10 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.krishisetu.app.localization.FarmerStrings
 import com.krishisetu.app.models.AppLanguage
+import com.krishisetu.app.models.CommodityCategory
 import com.krishisetu.app.models.QualityGrade
 import com.krishisetu.app.ui.components.KrishiTopBar
 import com.krishisetu.app.ui.components.PrimaryKrishiButton
@@ -38,6 +44,9 @@ fun CreateLotWizardScreen(
     var step by remember { mutableStateOf(1) }
 
     var selectedCrop by remember { mutableStateOf("Tomato") }
+    var selectedCategory by remember { mutableStateOf(CommodityCategory.ALL) }
+    var searchQuery by remember { mutableStateOf("") }
+
     var quantityText by remember { mutableStateOf("800") }
     var expectedPriceText by remember { mutableStateOf("26") }
 
@@ -46,7 +55,18 @@ fun CreateLotWizardScreen(
     // Separate organic certification boolean
     var isOrganicCertified by remember { mutableStateOf(false) }
 
-    val crops = listOf("Tomato 🍅", "Onion 🧅", "Potato 🥔", "Wheat 🌾", "Soybean 🫘")
+    val allCommodities = viewModel.commodities
+    val filteredCommodities = remember(allCommodities, selectedCategory, searchQuery, currentLang) {
+        val query = searchQuery.trim().lowercase()
+        allCommodities.filter { item ->
+            val categoryMatch = selectedCategory == CommodityCategory.ALL || item.category == selectedCategory
+            val localizedName = strings.commodityName(item.name).lowercase()
+            val queryMatch = query.isEmpty() ||
+                    item.name.lowercase().contains(query) ||
+                    localizedName.contains(query)
+            categoryMatch && queryMatch
+        }
+    }
 
     val qualityGradesList = listOf(
         QualityGrade.GRADE_A,
@@ -54,10 +74,13 @@ fun CreateLotWizardScreen(
         QualityGrade.GRADE_C
     )
 
+    val isQuantityValid = (quantityText.toDoubleOrNull() ?: 0.0) > 0
+    val isPriceValid = (expectedPriceText.toDoubleOrNull() ?: 0.0) > 0
+
     // Validation: Step 3 requires valid selectedQualityGrade != NONE
     val canContinue = when (step) {
         1 -> selectedCrop.isNotBlank()
-        2 -> (quantityText.toDoubleOrNull() ?: 0.0) > 0 && (expectedPriceText.toDoubleOrNull() ?: 0.0) > 0
+        2 -> isQuantityValid && isPriceValid
         3 -> selectedQualityGrade != QualityGrade.NONE
         4 -> true
         5 -> true
@@ -80,10 +103,14 @@ fun CreateLotWizardScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(20.dp),
+                .padding(horizontal = 20.dp, vertical = 14.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
                 // Step Progress Bar
                 LinearProgressIndicator(
                     progress = { step / 5f },
@@ -95,48 +122,210 @@ fun CreateLotWizardScreen(
                     trackColor = BorderColor
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 when (step) {
                     1 -> {
                         Text(
                             text = strings.step1Title,
-                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp
+                            ),
                             color = TextPrimary
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = strings.chooseYourCropSubtitle,
+                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp),
+                            color = TextSecondary
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = strings.cropSelectionInstruction,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TextMuted
+                        )
 
-                        crops.forEach { crop ->
-                            val rawCropName = crop.split(" ")[0]
-                            val isSelected = selectedCrop == rawCropName
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // Selected Crop Banner
+                        val selectedInfo = allCommodities.find { it.name == selectedCrop }
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = CardDefaults.cardColors(containerColor = FarmerRoleBg),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, FarmerRoleGreen.copy(alpha = 0.4f))
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "${strings.selectedCropBannerLabel}:",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = TextSecondary
+                                )
+                                Text(
+                                    text = "${selectedInfo?.emoji ?: "🌾"} ${strings.commodityName(selectedCrop)}",
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = FarmerRoleGreen
+                                    )
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // Crop Category Filter
+                        Text(
+                            text = strings.cropCategoryLabel,
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                            color = TextSecondary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            items(CommodityCategory.entries) { cat ->
+                                val isCatSelected = selectedCategory == cat
+                                FilterChip(
+                                    selected = isCatSelected,
+                                    onClick = { selectedCategory = cat },
+                                    label = {
+                                        Text(
+                                            text = strings.categoryName(cat),
+                                            fontWeight = if (isCatSelected) FontWeight.Bold else FontWeight.Medium
+                                        )
+                                    },
+                                    colors = FilterChipDefaults.filterChipColors(
+                                        selectedContainerColor = FarmerRoleGreen,
+                                        selectedLabelColor = Color.White
+                                    )
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Search Crop Input
+                        OutlinedTextField(
+                            value = searchQuery,
+                            onValueChange = { searchQuery = it },
+                            placeholder = { Text(strings.searchCropPlaceholder) },
+                            leadingIcon = {
+                                Icon(Icons.Default.Search, contentDescription = null, tint = FarmerRoleGreen)
+                            },
+                            trailingIcon = {
+                                if (searchQuery.isNotEmpty()) {
+                                    IconButton(onClick = { searchQuery = "" }) {
+                                        Icon(Icons.Default.Clear, contentDescription = strings.clearSearchBtn)
+                                    }
+                                }
+                            },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = FarmerRoleGreen,
+                                focusedContainerColor = CardSurface,
+                                unfocusedContainerColor = CardSurface
+                            )
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        if (selectedCrop.isBlank()) {
+                            Text(
+                                text = strings.cropRequiredError,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = StatusError
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                        }
+
+                        if (filteredCommodities.isEmpty()) {
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 6.dp)
-                                    .clickable { selectedCrop = rawCropName },
+                                    .padding(vertical = 12.dp),
                                 shape = RoundedCornerShape(14.dp),
-                                colors = CardDefaults.cardColors(
-                                    containerColor = if (isSelected) FarmerRoleBg else CardSurface
-                                ),
-                                border = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, FarmerRoleGreen) else null
+                                colors = CardDefaults.cardColors(containerColor = CardSurface)
                             ) {
-                                Row(
-                                    modifier = Modifier.padding(16.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(20.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Text(
-                                        text = crop,
-                                        style = MaterialTheme.typography.titleMedium.copy(
-                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
-                                        )
+                                        text = strings.noCropsFoundMsg,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = TextSecondary
                                     )
-                                    if (isSelected) {
-                                        Icon(
-                                            imageVector = Icons.Default.CheckCircle,
-                                            contentDescription = "Selected",
-                                            tint = FarmerRoleGreen
-                                        )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    TextButton(onClick = {
+                                        searchQuery = ""
+                                        selectedCategory = CommodityCategory.ALL
+                                    }) {
+                                        Text(strings.clearSearchBtn, fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                                    }
+                                }
+                            }
+                        } else {
+                            LazyColumn(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                contentPadding = PaddingValues(bottom = 12.dp)
+                            ) {
+                                items(filteredCommodities, key = { it.id }) { commodity ->
+                                    val isSelected = selectedCrop == commodity.name
+                                    Card(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable { selectedCrop = commodity.name },
+                                        shape = RoundedCornerShape(14.dp),
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = if (isSelected) FarmerRoleBg else CardSurface
+                                        ),
+                                        border = if (isSelected) {
+                                            androidx.compose.foundation.BorderStroke(2.dp, FarmerRoleGreen)
+                                        } else {
+                                            androidx.compose.foundation.BorderStroke(1.dp, BorderColor)
+                                        }
+                                    ) {
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 16.dp, vertical = 12.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Column {
+                                                Text(
+                                                    text = "${commodity.emoji} ${strings.commodityName(commodity.name)}",
+                                                    style = MaterialTheme.typography.titleMedium.copy(
+                                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                                    ),
+                                                    color = TextPrimary
+                                                )
+                                                Text(
+                                                    text = strings.categoryName(commodity.category),
+                                                    style = MaterialTheme.typography.labelSmall,
+                                                    color = TextMuted
+                                                )
+                                            }
+                                            if (isSelected) {
+                                                Icon(
+                                                    imageVector = Icons.Default.CheckCircle,
+                                                    contentDescription = strings.selectedCropBannerLabel,
+                                                    tint = FarmerRoleGreen
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -160,12 +349,21 @@ fun CreateLotWizardScreen(
                         OutlinedTextField(
                             value = quantityText,
                             onValueChange = { quantityText = it },
-                            placeholder = { Text("e.g. 800") },
+                            placeholder = { Text(strings.quantityPlaceholder) },
+                            isError = !isQuantityValid,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = FarmerRoleGreen)
                         )
+                        if (!isQuantityValid) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = strings.quantityRequiredError,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = StatusError
+                            )
+                        }
 
                         Spacer(modifier = Modifier.height(20.dp))
 
@@ -178,12 +376,21 @@ fun CreateLotWizardScreen(
                         OutlinedTextField(
                             value = expectedPriceText,
                             onValueChange = { expectedPriceText = it },
-                            placeholder = { Text("e.g. 26") },
+                            placeholder = { Text(strings.pricePlaceholder) },
+                            isError = !isPriceValid,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = FarmerRoleGreen)
                         )
+                        if (!isPriceValid) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = strings.priceRequiredError,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = StatusError
+                            )
+                        }
                     }
 
                     // STEP 3: MUTUALLY EXCLUSIVE QUALITY SELECTION (FIXED)
@@ -247,6 +454,15 @@ fun CreateLotWizardScreen(
                                     }
                                 }
                             }
+                        }
+
+                        if (selectedQualityGrade == QualityGrade.NONE) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = strings.qualityRequiredError,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = StatusError
+                            )
                         }
 
                         Spacer(modifier = Modifier.height(20.dp))
@@ -318,11 +534,11 @@ fun CreateLotWizardScreen(
                                 Text(text = "📸", fontSize = 40.sp)
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
-                                    text = "3 Photos Selected (Mock)",
+                                    text = strings.photosSelectedMock,
                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
                                 )
                                 Text(
-                                    text = "Tap to capture or change photos",
+                                    text = strings.tapToCapturePhotos,
                                     style = MaterialTheme.typography.labelSmall,
                                     color = TextMuted
                                 )
@@ -354,12 +570,12 @@ fun CreateLotWizardScreen(
 
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Text(strings.selectCropLabel, color = TextSecondary)
-                                    Text(selectedCrop, fontWeight = FontWeight.Bold)
+                                    Text(strings.commodityName(selectedCrop), fontWeight = FontWeight.Bold)
                                 }
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Text(strings.quantityKgLabel, color = TextSecondary)
-                                    Text("$quantityText kg", fontWeight = FontWeight.Bold)
+                                    Text("$quantityText ${strings.kgUnit}", fontWeight = FontWeight.Bold)
                                 }
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -374,12 +590,16 @@ fun CreateLotWizardScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Text(strings.organicToggleLabel, color = TextSecondary)
-                                    Text(if (isOrganicCertified) "✓ Yes" else "No", fontWeight = FontWeight.Bold, color = if (isOrganicCertified) AccentGold else TextPrimary)
+                                    Text(
+                                        if (isOrganicCertified) "✓ ${strings.yesLabel}" else strings.noLabel,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (isOrganicCertified) AccentGold else TextPrimary
+                                    )
                                 }
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Text(strings.expectedPriceLabel, color = TextSecondary)
-                                    Text("₹$expectedPriceText / kg", fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                                    Text("₹$expectedPriceText / ${strings.kgUnit}", fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
                                 }
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -393,8 +613,10 @@ fun CreateLotWizardScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.height(10.dp))
+
             PrimaryKrishiButton(
-                text = if (step < 5) "${strings.continueButton} →" else strings.createLotNowBtn,
+                text = if (step < 5) "${strings.continueButton} (${strings.nextStepBtn}) →" else strings.createLotNowBtn,
                 enabled = canContinue,
                 containerColor = FarmerRoleGreen,
                 onClick = {

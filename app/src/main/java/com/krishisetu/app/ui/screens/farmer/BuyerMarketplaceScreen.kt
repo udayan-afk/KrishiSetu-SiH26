@@ -1,12 +1,13 @@
 package com.krishisetu.app.ui.screens.farmer
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -35,17 +36,37 @@ fun BuyerMarketplaceScreen(
     val buyers by viewModel.buyers.collectAsState()
     val requirements by viewModel.buyerRequirements.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+    var selectedCropFilter by remember { mutableStateOf("ALL") }
+    var contactDialogBuyer by remember { mutableStateOf<BuyerUser?>(null) }
 
-    val filteredBuyers = buyers.filter {
-        it.companyName.contains(searchQuery, ignoreCase = true) ||
-                it.location.contains(searchQuery, ignoreCase = true)
+    val availableCropFilters = remember(requirements) {
+        listOf("ALL") + requirements.map { it.cropName }.distinct()
+    }
+
+    val filteredBuyers = remember(buyers, requirements, searchQuery, selectedCropFilter, currentLang) {
+        val query = searchQuery.trim().lowercase()
+        buyers.filter { buyer ->
+            val buyerReq = requirements.find { it.buyerId == buyer.id }
+            val cropMatches = selectedCropFilter == "ALL" || buyerReq?.cropName == selectedCropFilter
+            val localizedLocation = strings.districtName(buyer.location).lowercase()
+            val localizedType = strings.translateBuyerType(buyer.buyerType).lowercase()
+            val localizedCrop = buyerReq?.let { strings.commodityName(it.cropName).lowercase() } ?: ""
+            val queryMatches = query.isEmpty() ||
+                    buyer.companyName.lowercase().contains(query) ||
+                    buyer.location.lowercase().contains(query) ||
+                    localizedLocation.contains(query) ||
+                    localizedType.contains(query) ||
+                    localizedCrop.contains(query) ||
+                    (buyerReq?.cropName?.lowercase()?.contains(query) == true)
+            cropMatches && queryMatches
+        }
     }
 
     Scaffold(
         topBar = {
             KrishiTopBar(
                 title = strings.buyerMarketplaceTitle,
-                subtitle = "Verified Processors, Traders & FPOs",
+                subtitle = strings.buyerMarketplaceSubtitle,
                 onBackClick = onBack
             )
         },
@@ -66,6 +87,14 @@ fun BuyerMarketplaceScreen(
                     onValueChange = { searchQuery = it },
                     placeholder = { Text(strings.searchBuyersPlaceholder) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = TextMuted) },
+                    trailingIcon = {
+                        if (searchQuery.isNotEmpty()) {
+                            IconButton(onClick = { searchQuery = "" }) {
+                                Icon(Icons.Default.Clear, contentDescription = strings.clearSearchBtn)
+                            }
+                        }
+                    },
+                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -77,6 +106,42 @@ fun BuyerMarketplaceScreen(
                 )
             }
 
+            // Commodity Filter Row
+            item {
+                Column {
+                    Text(
+                        text = strings.filterByCropLabel,
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                        color = TextSecondary
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        items(availableCropFilters) { cropKey ->
+                            val isSelected = selectedCropFilter == cropKey
+                            val chipLabel = if (cropKey == "ALL") {
+                                strings.categoryAll
+                            } else {
+                                strings.commodityName(cropKey)
+                            }
+                            FilterChip(
+                                selected = isSelected,
+                                onClick = { selectedCropFilter = cropKey },
+                                label = {
+                                    Text(
+                                        text = chipLabel,
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                    )
+                                },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = FarmerRoleGreen,
+                                    selectedLabelColor = Color.White
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
             item {
                 Text(
                     text = "${strings.actionFindBuyers} (${filteredBuyers.size})",
@@ -85,7 +150,43 @@ fun BuyerMarketplaceScreen(
                 )
             }
 
-            items(filteredBuyers) { buyer ->
+            if (filteredBuyers.isEmpty()) {
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = CardSurface)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(24.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = strings.noBuyersFoundTitle,
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = TextPrimary
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = strings.noBuyersFoundSub,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextSecondary
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            TextButton(onClick = {
+                                searchQuery = ""
+                                selectedCropFilter = "ALL"
+                            }) {
+                                Text(strings.clearSearchBtn, fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                            }
+                        }
+                    }
+                }
+            }
+
+            items(filteredBuyers, key = { it.id }) { buyer ->
                 val buyerReq = requirements.find { it.buyerId == buyer.id }
 
                 Card(
@@ -109,13 +210,18 @@ fun BuyerMarketplaceScreen(
                                     color = TextPrimary
                                 )
                                 Text(
-                                    text = "${buyer.buyerType} · ${buyer.location} (${buyer.distanceKm} km)",
+                                    text = "${strings.translateBuyerType(buyer.buyerType)} · ${strings.districtName(buyer.location)} (${buyer.distanceKm} ${strings.kmUnit})",
                                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                                     color = TextMuted
                                 )
+                                Text(
+                                    text = String.format(strings.buyerContactLabel, buyer.contactName),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = TextSecondary
+                                )
                             }
                             if (buyer.verified) {
-                                VerifiedBadge()
+                                VerifiedBadge(text = strings.verifiedBuyer)
                             }
                         }
 
@@ -127,19 +233,24 @@ fun BuyerMarketplaceScreen(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Column {
+                                Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "Requirement: ${req.cropName} (${req.requiredQuantityKg.toInt()} kg)",
+                                        text = String.format(
+                                            strings.buyerRequirementLine,
+                                            strings.commodityName(req.cropName),
+                                            req.requiredQuantityKg.toInt(),
+                                            strings.kgUnit
+                                        ),
                                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
                                         color = TextPrimary
                                     )
                                     Text(
-                                        text = buyer.onTimeHistory,
+                                        text = String.format(strings.onTimePaymentHistoryFormat, buyer.paymentReliability),
                                         style = MaterialTheme.typography.labelSmall.copy(color = FarmerRoleGreen)
                                     )
                                 }
                                 Text(
-                                    text = "₹${req.pricePerKg.toInt()}/kg",
+                                    text = "₹${req.pricePerKg.toInt()}/${strings.kgUnit}",
                                     style = MaterialTheme.typography.titleLarge.copy(
                                         fontWeight = FontWeight.ExtraBold,
                                         color = FarmerRoleGreen
@@ -152,19 +263,60 @@ fun BuyerMarketplaceScreen(
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End
+                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End)
                         ) {
+                            OutlinedButton(
+                                onClick = { contactDialogBuyer = buyer },
+                                shape = RoundedCornerShape(10.dp)
+                            ) {
+                                Text(strings.contactBuyerBtn, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = PrimaryGreen)
+                            }
                             Button(
                                 onClick = { onSelectBuyer(buyer) },
                                 shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = FarmerRoleGreen)
                             ) {
-                                Text(strings.makeOfferBtn, fontSize = 12.sp)
+                                Text(strings.makeOfferBtn, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    contactDialogBuyer?.let { buyer ->
+        AlertDialog(
+            onDismissRequest = { contactDialogBuyer = null },
+            title = {
+                Text(strings.contactBuyerDialogTitle, fontWeight = FontWeight.Bold)
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text("${strings.buyerCompanyLabel}: ${buyer.companyName}", fontWeight = FontWeight.Bold)
+                    Text("${strings.buyerTypeLabel}: ${strings.translateBuyerType(buyer.buyerType)}")
+                    Text("${strings.buyerLocationLabel}: ${strings.districtName(buyer.location)} (${buyer.distanceKm} ${strings.kmUnit})")
+                    Text(String.format(strings.buyerContactLabel, buyer.contactName))
+                    Text("${strings.buyerPhoneLabel}: ${buyer.mobile}", fontWeight = FontWeight.SemiBold, color = FarmerRoleGreen)
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val selected = buyer
+                        contactDialogBuyer = null
+                        onSelectBuyer(selected)
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = FarmerRoleGreen)
+                ) {
+                    Text(strings.makeOfferBtn)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { contactDialogBuyer = null }) {
+                    Text(strings.cancel)
+                }
+            }
+        )
     }
 }

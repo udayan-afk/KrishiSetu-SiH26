@@ -37,6 +37,10 @@ fun AdminLoginScreen(
     var password by remember { mutableStateOf("admin123") }
     var isPasswordVisible by remember { mutableStateOf(false) }
 
+    val isUsernameValid = username.trim().isNotEmpty()
+    val isPasswordValid = password.trim().isNotEmpty()
+    val isFormValid = isUsernameValid && isPasswordValid
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -132,10 +136,20 @@ fun AdminLoginScreen(
                         value = username,
                         onValueChange = { username = it },
                         label = { Text("Username / Email") },
+                        isError = !isUsernameValid,
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp)
                     )
+                    if (!isUsernameValid) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Username or email is required",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.align(Alignment.Start)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(14.dp))
 
@@ -143,6 +157,7 @@ fun AdminLoginScreen(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text("Password") },
+                        isError = !isPasswordValid,
                         singleLine = true,
                         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -158,14 +173,26 @@ fun AdminLoginScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp)
                     )
+                    if (!isPasswordValid) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Password is required",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.align(Alignment.Start)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     Button(
                         onClick = {
-                            viewModel.selectRole(UserRole.ADMIN)
-                            onLoginSuccess()
+                            if (isFormValid) {
+                                viewModel.selectRole(UserRole.ADMIN)
+                                onLoginSuccess()
+                            }
                         },
+                        enabled = isFormValid,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(52.dp),

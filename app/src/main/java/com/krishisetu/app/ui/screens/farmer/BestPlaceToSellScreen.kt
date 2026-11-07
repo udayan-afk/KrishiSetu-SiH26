@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -14,29 +16,63 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import com.krishisetu.app.localization.FarmerStrings
+import com.krishisetu.app.models.DemoMarketDataCatalog
 import com.krishisetu.app.ui.components.KrishiTopBar
 import com.krishisetu.app.ui.components.PrimaryKrishiButton
 import com.krishisetu.app.ui.components.StatusBadge
 import com.krishisetu.app.ui.components.VerifiedBadge
 import com.krishisetu.app.ui.theme.*
 import com.krishisetu.app.viewmodel.KrishiSetuViewModel
+import java.util.Locale
+
+private fun formatBestPlaceRate(value: Double): String {
+    return if (value % 1.0 == 0.0) {
+        value.toInt().toString()
+    } else {
+        String.format(Locale.US, "%.1f", value)
+    }
+}
 
 @Composable
 fun BestPlaceToSellScreen(
+    viewModel: KrishiSetuViewModel,
     onBack: () -> Unit,
     onNavigateToDirectBuyer: () -> Unit,
     onNavigateToSellOrWait: () -> Unit
 ) {
-    val strings = FarmerStrings.get()
+    val currentLang by viewModel.selectedLanguage.collectAsState()
+    val strings = FarmerStrings.get(currentLang)
+
+    val marketPrices by viewModel.marketPrices.collectAsState()
+    val selectedCrop by viewModel.selectedCommodity.collectAsState()
+    val quantityKg by viewModel.comparisonQuantityKg.collectAsState()
+    val allCommodities = viewModel.commodities
+
+    val cropMarkets = remember(marketPrices, selectedCrop) {
+        marketPrices.filter { it.cropName == selectedCrop }
+    }
+
+    val bestNetMarket = remember(cropMarkets, quantityKg) {
+        cropMarkets.maxByOrNull { record ->
+            val gross = record.currentPricePerKg * quantityKg
+            val transport = DemoMarketDataCatalog.estimateTransportCost(record.distanceKm, quantityKg)
+            gross - transport
+        }
+    }
+
+    val localSataraMarket = remember(cropMarkets) {
+        cropMarkets.find { it.marketId == "MKT-10" || it.district.equals("Satara", ignoreCase = true) }
+            ?: cropMarkets.minByOrNull { it.distanceKm }
+    }
+
+    val localizedSelectedCrop = strings.commodityName(selectedCrop)
 
     Scaffold(
         topBar = {
             KrishiTopBar(
                 title = strings.bestPlaceTitle,
-                subtitle = "AI & Market Linkage Recommendation",
+                subtitle = String.format(strings.bestPlaceSubtitle, localizedSelectedCrop),
                 onBackClick = onBack
             )
         },
@@ -50,6 +86,29 @@ fun BestPlaceToSellScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(top = 16.dp, bottom = 80.dp)
         ) {
+            // Commodity Switcher Row
+            item {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    items(allCommodities, key = { it.id }) { commodity ->
+                        val isSelected = commodity.name == selectedCrop
+                        FilterChip(
+                            selected = isSelected,
+                            onClick = { viewModel.selectCommodity(commodity.name) },
+                            label = {
+                                Text(
+                                    text = "${commodity.emoji} ${strings.commodityName(commodity.name)}",
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                )
+                            },
+                            colors = FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = FarmerRoleGreen,
+                                selectedLabelColor = Color.White
+                            )
+                        )
+                    }
+                }
+            }
+
             // Recommendation Alert Header
             item {
                 Card(
@@ -65,11 +124,16 @@ fun BestPlaceToSellScreen(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = "Highest Profit Opportunity Identified",
+                                text = String.format(strings.bestNetMarketIdentifiedTitle, localizedSelectedCrop),
                                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
                             )
                             Text(
-                                text = "Direct buyer procurement saves ₹1,408 mandi commission fee!",
+                                text = String.format(
+                                    strings.bestNetMarketIdentifiedSub,
+                                    cropMarkets.size,
+                                    quantityKg.toInt(),
+                                    strings.kgUnit
+                                ),
                                 style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                                 color = TextSecondary
                             )
@@ -80,94 +144,137 @@ fun BestPlaceToSellScreen(
 
             // Visually Prominent Recommendation Card
             item {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(2.dp, FarmerRoleGreen, RoundedCornerShape(20.dp)),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = CardSurface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
-                ) {
-                    Column(modifier = Modifier.padding(20.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            StatusBadge(status = strings.topRecommendationBadge)
-                            VerifiedBadge()
-                        }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-
+                if (bestNetMarket == null) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = CardSurface)
+                    ) {
                         Text(
-                            text = "FreshFoods Pvt Ltd / Pune Food Processor",
-                            style = MaterialTheme.typography.headlineMedium.copy(
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 20.sp
-                            ),
-                            color = TextPrimary
-                        )
-
-                        Text(
-                            text = "Crop: Tomato · Quantity: 800 kg · Distance: 42 km",
+                            text = strings.noMarketsAvailableForCrop,
+                            modifier = Modifier.padding(20.dp),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = TextMuted
+                            color = TextSecondary
                         )
+                    }
+                } else {
+                    val best = bestNetMarket
+                    val bestGross = best.currentPricePerKg * quantityKg
+                    val bestTransport = DemoMarketDataCatalog.estimateTransportCost(best.distanceKm, quantityKg)
+                    val bestNet = bestGross - bestTransport
 
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp), color = BorderColor)
+                    val localNet = localSataraMarket?.let { loc ->
+                        (loc.currentPricePerKg * quantityKg) -
+                                DemoMarketDataCatalog.estimateTransportCost(loc.distanceKm, quantityKg)
+                    } ?: bestNet
+                    val netGainVsLocal = (bestNet - localNet).coerceAtLeast(0.0)
 
-                        // Financial breakdown
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("${strings.grossAmountLabel} (800 kg @ ₹26/kg)", style = MaterialTheme.typography.bodyLarge, color = TextSecondary)
-                            Text("₹20,800", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(strings.transportCostLabel, style = MaterialTheme.typography.bodyLarge, color = TextSecondary)
-                            Text("₹1,800", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold, color = StatusError))
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(strings.commissionFeeLabel, style = MaterialTheme.typography.bodyLarge, color = TextSecondary)
-                            Text("₹0 (Direct Deal)", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold, color = StatusSuccess))
-                        }
-
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 14.dp), color = BorderColor)
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(14.dp))
-                                .background(FarmerRoleBg)
-                                .padding(16.dp)
-                        ) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .border(2.dp, FarmerRoleGreen, RoundedCornerShape(20.dp)),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = CardDefaults.cardColors(containerColor = CardSurface),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(20.dp)) {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Column {
-                                    Text(
-                                        text = strings.netRealizationTitle,
-                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
-                                    )
-                                    Text(
-                                        text = "₹19,000",
-                                        style = MaterialTheme.typography.headlineLarge.copy(
-                                            fontWeight = FontWeight.ExtraBold,
-                                            color = FarmerRoleGreen,
-                                            fontSize = 32.sp
-                                        )
-                                    )
-                                }
+                                StatusBadge(status = strings.topRecommendationBadge)
+                                VerifiedBadge(text = strings.verifiedMarketBadge)
+                            }
+
+                            Spacer(modifier = Modifier.height(14.dp))
+
+                            Text(
+                                text = strings.marketName(best.marketName),
+                                style = MaterialTheme.typography.headlineMedium.copy(
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 20.sp
+                                ),
+                                color = TextPrimary
+                            )
+
+                            Text(
+                                text = String.format(
+                                    strings.bestPlaceCropQtyDistrictLine,
+                                    localizedSelectedCrop,
+                                    quantityKg.toInt(),
+                                    strings.kgUnit,
+                                    strings.districtName(best.district),
+                                    best.distanceKm,
+                                    strings.kmUnit
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextMuted
+                            )
+
+                            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp), color = BorderColor)
+
+                            // Financial breakdown
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                 Text(
-                                    text = "+₹2,400\nvs Mandi",
-                                    style = MaterialTheme.typography.titleMedium.copy(
-                                        fontWeight = FontWeight.Bold,
-                                        color = AccentGold
-                                    )
+                                    "${strings.grossAmountLabel} (${quantityKg.toInt()} ${strings.kgUnit} @ ₹${formatBestPlaceRate(best.currentPricePerKg)}/${strings.kgUnit})",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = TextSecondary
                                 )
+                                Text("₹${bestGross.toInt()}", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Text(strings.estimatedTransportCostLabel, style = MaterialTheme.typography.bodyLarge, color = TextSecondary)
+                                Text("-₹${bestTransport.toInt()}", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold, color = StatusError))
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Text(strings.dataSourceLabel, style = MaterialTheme.typography.bodyLarge, color = TextSecondary)
+                                Text(
+                                    "${strings.dataStatusLabel(best.dataStatus)} · ${strings.marketTypeLabel(best.marketType)}",
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                                )
+                            }
+
+                            HorizontalDivider(modifier = Modifier.padding(vertical = 14.dp), color = BorderColor)
+
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .background(FarmerRoleBg)
+                                    .padding(16.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column {
+                                        Text(
+                                            text = strings.netRealizationTitle,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                                        )
+                                        Text(
+                                            text = "₹${bestNet.toInt()}",
+                                            style = MaterialTheme.typography.headlineLarge.copy(
+                                                fontWeight = FontWeight.ExtraBold,
+                                                color = FarmerRoleGreen,
+                                                fontSize = 32.sp
+                                            )
+                                        )
+                                    }
+                                    if (netGainVsLocal > 0) {
+                                        Text(
+                                            text = String.format(strings.gainVsLocalMandi, netGainVsLocal.toInt()),
+                                            style = MaterialTheme.typography.titleMedium.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                color = AccentGold
+                                            )
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
@@ -176,28 +283,57 @@ fun BestPlaceToSellScreen(
 
             // Comparison against Local Mandi Card
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = CardSurface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = "Comparison with Satara Local Mandi",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = TextPrimary
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = "Local Mandi Rate: ₹22/kg · Mandi Net: ₹15,792",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary
-                        )
-                        Text(
-                            text = "By selling to Pune Processor, you gain ₹3,208 additional profit!",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
-                        )
+                if (bestNetMarket != null && localSataraMarket != null) {
+                    val localGross = localSataraMarket.currentPricePerKg * quantityKg
+                    val localTransport = DemoMarketDataCatalog.estimateTransportCost(localSataraMarket.distanceKm, quantityKg)
+                    val localNet = localGross - localTransport
+
+                    val bestNet = (bestNetMarket.currentPricePerKg * quantityKg) -
+                            DemoMarketDataCatalog.estimateTransportCost(bestNetMarket.distanceKm, quantityKg)
+                    val diff = (bestNet - localNet).coerceAtLeast(0.0)
+                    val localizedLocalMarket = strings.marketName(localSataraMarket.marketName)
+                    val localizedBestMarket = strings.marketName(bestNetMarket.marketName)
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = CardSurface),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = String.format(strings.comparisonWithLocalTitle, localizedLocalMarket),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = TextPrimary
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = String.format(
+                                    strings.localMarketMetricsLine,
+                                    formatBestPlaceRate(localSataraMarket.currentPricePerKg),
+                                    strings.kgUnit,
+                                    localTransport.toInt(),
+                                    localNet.toInt()
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextSecondary
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = if (diff > 0) {
+                                    String.format(strings.higherNetInBestMarketMsg, localizedBestMarket, diff.toInt())
+                                } else {
+                                    String.format(strings.localMarketIsBestMsg, localizedLocalMarket)
+                                },
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, color = FarmerRoleGreen)
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = strings.bestPlaceWarningNote,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = TextMuted
+                            )
+                        }
                     }
                 }
             }
@@ -217,7 +353,11 @@ fun BestPlaceToSellScreen(
                             .height(50.dp),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text("⏳ ${strings.sellNowOrWaitTitle}", fontWeight = FontWeight.Bold, color = PrimaryGreen)
+                        Text(
+                            "⏳ ${strings.sellNowOrWaitTitle} ($localizedSelectedCrop)",
+                            fontWeight = FontWeight.Bold,
+                            color = PrimaryGreen
+                        )
                     }
                 }
             }

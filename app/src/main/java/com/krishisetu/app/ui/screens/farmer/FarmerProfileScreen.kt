@@ -329,7 +329,7 @@ fun FarmerProfileScreen(
                     status = farmer.aadhaarStatus,
                     fileName = farmer.aadhaarFileName ?: "Aadhaar_Scan.pdf",
                     strings = strings,
-                    onUpload = { viewModel.uploadAadhaar("aadhaar_patil_verified.pdf") }
+                    onUpload = { viewModel.uploadAadhaar("aadhaar_jadhav_verified.pdf") }
                 )
             }
 

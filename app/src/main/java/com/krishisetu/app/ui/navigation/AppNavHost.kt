@@ -179,6 +179,7 @@ fun AppNavHost(
 
         composable(ScreenRoutes.MarketComparison) {
             MarketComparisonScreen(
+                viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onNavigateToBestPlaceToSell = { navController.navigate(ScreenRoutes.BestPlaceToSell) }
             )
@@ -186,6 +187,7 @@ fun AppNavHost(
 
         composable(ScreenRoutes.BestPlaceToSell) {
             BestPlaceToSellScreen(
+                viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onNavigateToDirectBuyer = { navController.navigate(ScreenRoutes.BuyerMarketplace) },
                 onNavigateToSellOrWait = { navController.navigate(ScreenRoutes.SellNowOrWait) }
@@ -194,6 +196,7 @@ fun AppNavHost(
 
         composable(ScreenRoutes.SellNowOrWait) {
             SellNowOrWaitScreen(
+                viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onSellNowClick = { navController.navigate(ScreenRoutes.BuyerMarketplace) }
             )
@@ -238,7 +241,8 @@ fun AppNavHost(
 
         composable(ScreenRoutes.ProfitCalculator) {
             ProfitCalculatorScreen(
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                viewModel = viewModel
             )
         }
 
@@ -356,7 +360,9 @@ fun AppNavHost(
             BuyerRegisterScreen(
                 viewModel = viewModel,
                 onProfileCreated = {
-                    navController.navigate(ScreenRoutes.BuyerDocVerification)
+                    navController.navigate(ScreenRoutes.BuyerDocVerification) {
+                        popUpTo(ScreenRoutes.BuyerRegister) { inclusive = true }
+                    }
                 },
                 onBackToLogin = { navController.popBackStack() }
             )
@@ -367,7 +373,7 @@ fun AppNavHost(
                 viewModel = viewModel,
                 onVerificationCompleted = {
                     navController.navigate(ScreenRoutes.BuyerVerificationStatus) {
-                        popUpTo(ScreenRoutes.BuyerMain) { inclusive = false }
+                        popUpTo(ScreenRoutes.BuyerDocVerification) { inclusive = true }
                     }
                 },
                 onBack = { navController.popBackStack() }
@@ -379,7 +385,7 @@ fun AppNavHost(
                 viewModel = viewModel,
                 onNavigateToDashboard = {
                     navController.navigate(ScreenRoutes.BuyerMain) {
-                        popUpTo(ScreenRoutes.BuyerMain) { inclusive = true }
+                        popUpTo(ScreenRoutes.RoleSelection) { inclusive = false }
                     }
                 },
                 onBack = { navController.popBackStack() }
@@ -474,7 +480,7 @@ fun AppNavHost(
 
         composable(ScreenRoutes.AdminFarmerVerification) {
             val adminFarmers by viewModel.adminFarmers.collectAsState()
-            val farmer = adminFarmers.firstOrNull() ?: com.krishisetu.app.models.AdminFarmerRecord("ADM-F-1", "Ramesh Patil", "Nashik, MH", "Maharashtra", 2, "Pending Verification")
+            val farmer = adminFarmers.firstOrNull() ?: com.krishisetu.app.models.AdminFarmerRecord("ADM-F-1", "Vikram Jadhav", "Nashik, MH", "Maharashtra", 2, "Pending Verification")
             AdminFarmerVerificationScreen(
                 viewModel = viewModel,
                 farmer = farmer,

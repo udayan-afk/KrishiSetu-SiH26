@@ -41,6 +41,10 @@ fun BuyerLoginScreen(
     var showPassword by remember { mutableStateOf(false) }
     var showForgotPasswordDialog by remember { mutableStateOf(false) }
 
+    val isEmailValid = email.trim().isNotEmpty()
+    val isPasswordValid = password.trim().isNotEmpty()
+    val isFormValid = isEmailValid && isPasswordValid
+
     Scaffold(
         containerColor = BackgroundWarm
     ) { innerPadding ->
@@ -116,6 +120,7 @@ fun BuyerLoginScreen(
                     onValueChange = { email = it },
                     placeholder = { Text("e.g. rajesh@freshfoods.in") },
                     leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = TextMuted) },
+                    isError = !isEmailValid,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -126,6 +131,14 @@ fun BuyerLoginScreen(
                         unfocusedBorderColor = BorderColor
                     )
                 )
+                if (!isEmailValid) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Company email is required",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -143,6 +156,7 @@ fun BuyerLoginScreen(
                     onValueChange = { password = it },
                     placeholder = { Text("Enter password") },
                     leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = TextMuted) },
+                    isError = !isPasswordValid,
                     visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
@@ -154,6 +168,14 @@ fun BuyerLoginScreen(
                         unfocusedBorderColor = BorderColor
                     )
                 )
+                if (!isPasswordValid) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Password is required",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -186,9 +208,12 @@ fun BuyerLoginScreen(
             PrimaryKrishiButton(
                 text = "Sign In →",
                 containerColor = FarmerRoleGreen,
+                enabled = isFormValid,
                 onClick = {
-                    viewModel.selectRole(UserRole.BUYER)
-                    onLoginSuccess()
+                    if (isFormValid) {
+                        viewModel.selectRole(UserRole.BUYER)
+                        onLoginSuccess()
+                    }
                 }
             )
 

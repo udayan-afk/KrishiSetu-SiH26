@@ -42,7 +42,7 @@ fun DigitalOfferScreen(
         topBar = {
             KrishiTopBar(
                 title = strings.digitalOfferTitle,
-                subtitle = "Offer ID: ${activeOffer.id}",
+                subtitle = "${strings.offerIdLabel}: ${activeOffer.id}",
                 onBackClick = onBack
             )
         },
@@ -75,13 +75,13 @@ fun DigitalOfferScreen(
                                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                 color = TextPrimary
                             )
-                            StatusBadge(status = activeOffer.status)
+                            StatusBadge(status = strings.translateStatus(activeOffer.status))
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Text(
-                            text = "${strings.offeredPriceLabel}: ₹${activeOffer.currentOfferedPricePerKg}/kg",
+                            text = "${strings.offeredPriceLabel}: ₹${activeOffer.currentOfferedPricePerKg}/${strings.kgUnit}",
                             style = MaterialTheme.typography.headlineMedium.copy(
                                 fontWeight = FontWeight.ExtraBold,
                                 color = FarmerRoleGreen,
@@ -90,7 +90,7 @@ fun DigitalOfferScreen(
                         )
 
                         Text(
-                            text = "Crop Lot: ${activeOffer.cropName} (${activeOffer.quantityKg.toInt()} kg)",
+                            text = "${strings.cropLotLabel}: ${strings.commodityName(activeOffer.cropName)} (${activeOffer.quantityKg.toInt()} ${strings.kgUnit})",
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextSecondary
                         )
@@ -157,7 +157,7 @@ fun DigitalOfferScreen(
                                 )
                             )
                             Text(
-                                text = "Deal confirmed with ${activeOffer.buyerName}. Proceed to select transport.",
+                                text = String.format(strings.dealConfirmedProceedMsg, activeOffer.buyerName),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = TextSecondary
                             )
@@ -172,7 +172,7 @@ fun DigitalOfferScreen(
                 } else {
                     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         PrimaryKrishiButton(
-                            text = "${strings.acceptOfferBtn} (₹${activeOffer.currentOfferedPricePerKg}/kg)",
+                            text = "${strings.acceptOfferBtn} (₹${activeOffer.currentOfferedPricePerKg}/${strings.kgUnit})",
                             containerColor = FarmerRoleGreen,
                             onClick = {
                                 viewModel.updateOfferStatus(activeOffer.id, "Accepted")

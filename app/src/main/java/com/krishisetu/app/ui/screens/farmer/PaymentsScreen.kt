@@ -33,13 +33,13 @@ fun PaymentsScreen(
 
     val transactions by viewModel.transactions.collectAsState()
 
-    val paymentStatuses = listOf(
-        strings.statusDealConfirmed,
-        strings.statusPickupScheduled,
-        strings.statusInTransit,
-        strings.statusDelivered,
-        strings.statusPaymentInitiated,
-        strings.statusPaymentReceived
+    val paymentStatusSteps = listOf(
+        "Deal Confirmed" to strings.statusDealConfirmed,
+        "Pickup Scheduled" to strings.statusPickupScheduled,
+        "In Transit" to strings.statusInTransit,
+        "Delivered" to strings.statusDelivered,
+        "Payment Initiated" to strings.statusPaymentInitiated,
+        "Payment Received" to strings.statusPaymentReceived
     )
 
     Scaffold(
@@ -112,17 +112,17 @@ fun PaymentsScreen(
                         ) {
                             Column {
                                 Text(
-                                    text = "${tx.cropName} (${tx.quantityKg.toInt()} kg)",
+                                    text = "${strings.commodityName(tx.cropName)} (${tx.quantityKg.toInt()} kg)",
                                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                     color = TextPrimary
                                 )
                                 Text(
-                                    text = "Buyer: ${tx.buyerName} · Date: ${tx.date}",
+                                    text = "${tx.buyerName} · ${tx.date}",
                                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                                     color = TextMuted
                                 )
                             }
-                            StatusBadge(status = tx.status)
+                            StatusBadge(status = strings.translateStatus(tx.status))
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
@@ -145,10 +145,12 @@ fun PaymentsScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        val idx = paymentStatuses.indexOf(tx.status)
+                        val idx = paymentStatusSteps.indexOfFirst { (key, label) ->
+                            key.equals(tx.status, ignoreCase = true) || label == tx.status
+                        }
                         val currentStepIndex = if (idx == -1) 0 else idx
 
-                        paymentStatuses.forEachIndexed { index, stepName ->
+                        paymentStatusSteps.forEachIndexed { index, (_, stepLabel) ->
                             val isCompleted = index <= currentStepIndex
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
@@ -162,7 +164,7 @@ fun PaymentsScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = stepName,
+                                    text = stepLabel,
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontSize = 12.sp,
                                         fontWeight = if (index == currentStepIndex) FontWeight.Bold else FontWeight.Normal,
